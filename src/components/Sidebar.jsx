@@ -70,9 +70,9 @@ export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavig
               className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
               onClick={onNavigate}
             >
-              {({ isActive }) => (
+              {() => (
                 <>
-                  {isActive && <HandCursor />}
+                  <HandCursor />
                   Inicio
                 </>
               )}
@@ -116,9 +116,9 @@ export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavig
                         className={({ isActive }) => `nav-link py-2${isActive ? ' active' : ''}`}
                         onClick={onNavigate}
                       >
-                        {({ isActive }) => (
+                        {() => (
                           <>
-                            {isActive && <HandCursor />}
+                            <HandCursor />
                             {article.title}
                           </>
                         )}

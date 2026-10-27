@@ -188,10 +188,34 @@ figcaption code {
   color: #1c2430;
 }
 
-.book-icon {
-  width: 1.35rem;
-  height: 1.35rem;
+.topbar-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.topbar-menu {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}
+
+.topbar-menu-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.topbar-mark {
+  width: 1.9rem;
+  height: 1.9rem;
+  flex: none;
+  object-fit: contain;
 }
 
 .topbar-search {
@@ -225,17 +249,54 @@ figcaption code {
   color: #1c2430;
 }
 
-/* En el móvil el nombre cede espacio al campo, que sigue ocupando cerca de la mitad. */
+/* En el celular el nombre va arriba, sin icono.
+   Debajo, el menú y el buscador, todavía dentro de la misma barra. */
 @media (max-width: 991.98px) {
+  :root {
+    --topbar-height: 6.35rem;
+  }
+
+  .topbar {
+    height: var(--topbar-height);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
   .topbar-inner {
-    grid-template-columns: auto minmax(0, 50%) minmax(0, 1fr);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand brand'
+      'tools actions';
+    row-gap: 0.45rem;
+    column-gap: 0.5rem;
+    align-items: center;
+  }
+
+  .topbar-brand {
+    grid-area: brand;
+  }
+
+  .topbar-tools {
+    grid-area: tools;
+  }
+
+  .topbar-actions {
+    grid-area: actions;
+    justify-self: end;
+  }
+
+  .navbar-title {
+    font-size: 1rem;
+    overflow: visible;
+    text-overflow: clip;
   }
 }
 
-/* En pantallas muy angostas se deja solo el icono del tema; el botón ya tiene aria-label. */
-@media (max-width: 575.98px) {
-  .navbar-title {
-    font-size: 0.78rem;
+@media (min-width: 992px) {
+  /* El contenedor desaparece y el buscador ocupa la columna del centro. */
+  .topbar-tools {
+    display: contents;
   }
 }
 
@@ -309,6 +370,10 @@ figcaption code {
   --bs-nav-link-color: var(--bs-body-color);
   --bs-nav-link-hover-color: var(--bs-emphasis-color);
   font-weight: 500;
+  /* El borde ya está reservado. Si aparece solo al activar, el botón cambia de tamaño y parpadea. */
+  border: 2px solid transparent;
+  /* Bootstrap anima el fondo 150 ms. Al activar se ve el borde blanco antes que el violeta. */
+  transition: none;
 }
 
 .sidebar .nav-pills .nav-link:not(.active):hover {
@@ -317,12 +382,13 @@ figcaption code {
 
 .sidebar .nav-pills .nav-link.active,
 .sidebar .nav-pills .nav-link.active:hover,
-.sidebar .nav-pills .nav-link.active:focus {
+.sidebar .nav-pills .nav-link.active:focus,
+.sidebar .nav-pills .nav-link.active:focus-visible {
   position: relative;
   z-index: 1;
   color: #fff;
   background-color: #291f90;
-  border: 2px solid #fff;
+  border-color: #fff;
   box-shadow: 0 0 0 1px #a3a3a3;
   font-weight: 600;
   /* Deja libre la punta del cursor, también cuando se desplaza a la derecha. */
@@ -339,13 +405,18 @@ figcaption code {
   height: auto;
   pointer-events: none;
   transform: translateY(-50%);
+  display: none;
+}
+
+.sidebar .nav-link.active .ff-hand {
+  display: block;
   animation: ff-hand-sway 0.9s ease-in-out infinite;
 }
 
 @keyframes ff-hand-sway {
   0%,
   100% {
-    transform: translate(-3px, -50%);
+    transform: translate(0, -50%);
   }
 
   50% {
@@ -353,11 +424,12 @@ figcaption code {
   }
 }
 
-html[data-hand-motion='off'] .ff-hand {
+html[data-hand-motion='off'] .sidebar .nav-link.active .ff-hand {
   animation: none;
 }
 
-html[data-hand-motion='hidden'] .ff-hand {
+html[data-hand-motion='hidden'] .ff-hand,
+html[data-hand-motion='hidden'] .sidebar .nav-link.active .ff-hand {
   display: none;
 }
 
@@ -713,7 +785,7 @@ html[data-hand-motion='hidden'] .sidebar .nav-pills .nav-link.active {
     transition: none;
   }
 
-  .ff-hand {
+  .sidebar .nav-link.active .ff-hand {
     animation: none;
   }
 }

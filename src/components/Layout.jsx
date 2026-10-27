@@ -75,19 +75,25 @@ export default function Layout() {
       <header className="topbar navbar fixed-top border-bottom px-3" data-bs-theme="light">
         <div className="topbar-inner">
           <div className="topbar-brand">
+            <BookIcon />
+            <span className="navbar-title">
+              <b>APUNTES</b> por Felipe Barber
+            </span>
+          </div>
+          {/* En el celular esta fila va debajo del nombre: menú y buscador. */}
+          <div className="topbar-tools">
             <button
               type="button"
-              className="btn btn-outline-secondary btn-sm flex-shrink-0 d-lg-none"
+              className="topbar-menu btn btn-outline-secondary d-lg-none"
               aria-expanded={menuOpen}
               aria-controls="indice"
+              aria-label={menuOpen ? 'Cerrar el índice' : 'Abrir el índice'}
               onClick={() => setMenuOpen((open) => !open)}
             >
-              Índice
+              <MenuIcon />
             </button>
-            <BookIcon />
-            <span><b>APUNTES</b> por Felipe Barber</span>
+            <SearchBox query={query} onQueryChange={handleQueryChange} />
           </div>
-          <SearchBox query={query} onQueryChange={handleQueryChange} />
           <div className="topbar-actions">
             <ThemeToggle />
             <HandMotionToggle />
@@ -125,9 +131,23 @@ export default function Layout() {
   );
 }
 
-// Icono de libro, a la izquierda del nombre. Decorativo: el texto ya nombra la página.
+// Icono de libro, a la izquierda del nombre. En el celular no se muestra.
 function BookIcon() {
   return (
-    <img src="/imagenes/pila-de-libros.png" alt="Icono de libro" aria-hidden="true" width={30} height={30}/>
+    <img
+      className="topbar-mark d-none d-lg-inline-block"
+      src="/imagenes/pila-de-libros.png"
+      alt=""
+      width={30}
+      height={30}
+    />
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg className="topbar-menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
   );
 }
