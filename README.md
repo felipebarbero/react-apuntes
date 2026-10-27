@@ -1,6 +1,6 @@
-# Apuntes
+# Apuntes de Tecnología
 
-Biblioteca personal en React 19 para consultar notas de React, TypeScript, JavaScript e inteligencia artificial.
+Proyecto a modo de "documentación" para guardar apuntes e información útil sobre tecnología o temas de interés.
 
 ```bash
 npm install

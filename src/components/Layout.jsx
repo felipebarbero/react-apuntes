@@ -77,7 +77,7 @@ export default function Layout() {
           <div className="topbar-brand">
             <BookIcon />
             <span className="navbar-title">
-              <b>APUNTES</b> por Felipe Barber
+              <b>APUNTES</b> de Tecnología
             </span>
           </div>
           {/* En el celular esta fila va debajo del nombre: menú y buscador. */}

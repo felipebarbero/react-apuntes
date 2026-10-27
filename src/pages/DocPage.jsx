@@ -55,7 +55,9 @@ export default function DocPage() {
 
         return (
         <section key={section.title} className="mt-4">
-          <h2 className="h4 fw-semibold">{section.title}</h2>
+          <div style={{ padding: '10px', backgroundColor: '#243857', borderRadius: '10px 10px 0px 0px' }}>
+            <h2 className="h4 fw-semibold text-white mb-0">{section.title}</h2>
+          </div>
           {flow ? (
             flow.map((block, index) => (
               <SectionBlock key={`${section.title}-block-${index}`} block={block} />

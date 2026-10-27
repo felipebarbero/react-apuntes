@@ -14,9 +14,9 @@ export default function HomePage() {
       <header className="card shadow-sm mb-4">
         <div className="card-body p-4 p-md-5">
           <p className="eyebrow">Proyecto personal</p>
-          <h1 className="fw-semibold mb-3">Apuntes por <span className="text-secondary">Felipe Barber</span></h1>
+          <h1 className="fw-semibold mb-3">Apuntes de <span className="text-primary">Tecnología</span></h1>
           <p className="lead mb-3">
-            Sitio web a modo de <span className="text-primary fw-bold">"documentación"</span> (hecho en React) para guardar apuntes e información útil sobre <span className="fw-bold">tecnología</span> o <span className="fw-bold">temas de interés</span>.
+            Sitio web a modo de <span className="fw-bold">"documentación"</span> para guardar apuntes e información útil sobre <span className="fw-bold">tecnología</span> o <span className="fw-bold">temas de interés</span>.
           </p>
           <ul>
             <li>El panel de la izquierda agrupa cada tema en categorías y secciones.</li>
@@ -24,6 +24,14 @@ export default function HomePage() {
             <li>Dentro de cualquier página puedes usar las flechas "Anterior" y "Siguiente" para navegar.</li>
             <li>Arriba a la derecha hay un botón para cambiar el tema (claro/oscuro) y otro para activar el cursor de sección activa.</li>
           </ul>
+          <div className="card">
+            <div className="card-body">
+              <p className="fw-semibold mb-3"><CategoryIcon src="/imagenes/categorias-iconos/github-142-svgrepo-com.svg" /> Este proyecto esta disponible en GitHub</p>
+              <a href="https://github.com/felipebarbero/react-apuntes" target="_blank" rel="noopener noreferrer">
+                <span>https://github.com/felipebarbero/react-apuntes</span>
+              </a>
+            </div>
+          </div>
           <p className="text-secondary mb-0 mt-4">
             {catalog.length} temas · {total} apuntes
           </p>
@@ -41,16 +49,7 @@ export default function HomePage() {
                   <CategoryIcon src={category.icon} />
                   {category.title}
                 </h3>
-                <p className="card-text text-secondary">{category.description}</p>
-                <ul className="list-unstyled mb-0">
-                  {/* category.items.map((article) => (
-                    <li key={article.slug}>
-                      <Link className="category-link d-block rounded px-2 py-1" to={articlePath(category.id, article.slug)}>
-                        {article.title}
-                      </Link>
-                    </li>
-                  )) */}
-                </ul>
+                <p className="card-text text-secondary mb-0">{category.description}</p>
               </div>
             </section>
           </div>
