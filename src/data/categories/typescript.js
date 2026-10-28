@@ -67,7 +67,7 @@ export const typescript = {
           content: [
             {
               type: 'p',
-              text: 'Para instalar TypeScript, primero debemos instalar <b>Node.js y npm</b>'
+              text: 'Para instalar TypeScript, primero debemos instalar <b>Node.js</b> y <b>npm</b>'
             },
             {
               type: 'alert',
@@ -75,7 +75,7 @@ export const typescript = {
               title: '¿Para qué necesito Node.js?',
               paragraphs: [
                 'TypeScript no necesita estrictamente <b>Node.js</b> ni <b>npm</b> para funcionar en producción, pero sí se utilizan durante el desarrollo para procesar, empaquetar y gestionar las herramientas de tu proyecto',
-                'npm es el gestor de paquetes de Node.js. y lo usaremos para instalar TypeScript y otras librerías.',
+                'npm es el gestor de paquetes de Node.js. y lo usaremos para instalar TypeScript.',
               ],
             },
             {
@@ -123,11 +123,11 @@ export const typescript = {
             },
             {
               type: 'p',
-              text: 'Esto instalará TypeScript en el proyecto.'
+              text: 'Esto instalará TypeScript <b>en el proyecto</b>.'
             },
             {
               type: 'p',
-              text: 'Tambien puedes usar el siguiente comando para instalar Typescript de manera global:'
+              text: 'Tambien puedes usar el siguiente comando para instalar Typescript <b>de manera global</b>:'
             },
             {
               type: 'code',
@@ -147,19 +147,19 @@ export const typescript = {
             },
             {
               type: 'p',
-              text: 'Si se muestra la version de TypeScript, la instalacion fue exitosa.'
+              text: 'Si se muestra la <b>version de TypeScript</b>, la instalacion fue exitosa.'
             },
           ],
         },
       ],
     },
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    // :::::::::::::::::::::::::::: PRIMEROS PASOS ::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: ARCHIVOS TS ::::::::::::::::::::::::::::
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     {
-      slug: 'typescript-primeros-pasos',
-      title: 'Primeros pasos',
-      keywords: ['typescript', 'javascript', 'primeros pasos', 'compilacion', 'tipado', 'tipado estatico'],
+      slug: 'typescript-archivos-ts',
+      title: 'Archivos TS',
+      keywords: ['typescript', 'javascript', 'archivos', 'compilacion', 'tipado', 'tipado estatico'],
       summary: '',
       sections: [
         // :::::::::::::::: ARCHIVOS TS ::::::::::::::::
@@ -189,7 +189,7 @@ export const typescript = {
 
             {
               type: 'p',
-              text: 'Luego, si queremos utilizar este archivo en un proyecto debemos compilarlo a JavaScript. Para hacer esto, podemos ejecutar el siguiente comando en la terminal (en la ubicacion del archivo TS):'
+              text: 'Entonces, si queremos utilizar este archivo en un proyecto debemos <b>compilarlo a JavaScript</b>. Para hacer esto, podemos ejecutar el siguiente comando en la terminal (en la ubicacion del archivo TS):'
             },
 
             {
@@ -215,51 +215,106 @@ export const typescript = {
             },
           ],
         },
-        // :::::::::::::::: INSTALAR TYPESCRIPT ::::::::::::::::
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: CONFIGURACION ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'typescript-configuracion',
+      title: 'Configuración',
+      keywords: ['typescript', 'javascript', 'configuracion', 'compilacion', 'tipado', 'tipado estatico'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: CONFIGURACION ::::::::::::::::
         {
-          title: 'Instalar TypeScript',
+          title: 'Configuración del Compilador',
           content: [
             {
               type: 'p',
-              text: 'Para instalar TypeScript, podemos usar <b>npm</b> (gestor de paquetes de Node.js).'
+              text: 'Como vimos en la sección anterior, para utilizar TypeScript en un proyecto primero debemos <b>compilar los archivos TS a JavaScript</b>. Pero tambien podemos configurar el compilador para que se comporte de manera diferente.'
             },
             {
               type: 'p',
-              text: 'Simplemente posicionate en el proyecto donde instalaste nodejs y ejecuta el siguiente comando en la terminal:'
+              text: 'Para <b>modificar el comportamiento del compilador</b>, podemos crear un archivo de configuración llamado <b>`tsconfig.json`</b> en la raiz del proyecto, el cual contiene las configuraciones del compilador.'
+            },
+            {
+              type: 'p',
+              text: 'Podemos generarlo de forma automatica ejecutando el siguiente <b>comando en la terminal</b>:'
             },
             {
               type: 'code',
               ...code('terminal', [
-                'npm install typescript --save-dev'
+                'tsc -init'
               ])
             },
             {
               type: 'p',
-              text: 'Esto instalará TypeScript en el proyecto.'
-            },
-            {
-              type: 'p',
-              text: 'Tambien puedes usar el siguiente comando para instalar Typescript de manera global:'
+              text: 'Al hacer esto, aparecera un archivo `tsconfig.json` en la raiz del proyecto con las configuraciones por defecto.'
             },
             {
               type: 'code',
-              ...code('terminal', [
-                'npm install -g typescript'
+              ...code('json', [
+                `{
+                // Visit https://aka.ms/tsconfig to read more about this file
+                "compilerOptions": {
+                  // File Layout
+                  // "rootDir": "./src",
+                  // "outDir": "./dist",
+
+                  // Environment Settings
+                  // See also https://aka.ms/tsconfig/module
+                  "module": "nodenext",
+                  "target": "esnext",
+                  "types": [],
+                  // For nodejs:
+                  // "lib": ["esnext"],
+                  // "types": ["node"],
+                  // and npm install -D @types/node
+
+                  // Other Outputs
+                  "sourceMap": true,
+                  "declaration": true,
+                  "declarationMap": true,
+
+                  // Stricter Typechecking Options
+                  "noUncheckedIndexedAccess": true,
+                  "exactOptionalPropertyTypes": true,
+
+                  // Style Options
+                  // "noImplicitReturns": true,
+                  // "noImplicitOverride": true,
+                  // "noUnusedLocals": true,
+                  // "noUnusedParameters": true,
+                  // "noFallthroughCasesInSwitch": true,
+                  // "noPropertyAccessFromIndexSignature": true,
+
+                  // Recommended Options
+                  "strict": true,
+                  "jsx": "react-jsx",
+                  "verbatimModuleSyntax": true,
+                  "isolatedModules": true,
+                  "noUncheckedSideEffectImports": true,
+                  "moduleDetection": "force",
+                  "skipLibCheck": true,
+                }
+              }`
               ])
             },
             {
               type: 'p',
-              text: 'Finalmente, puedes verificar que la instalacion fue exitosa ejecutando el siguiente comando en la terminal:'
+              text: 'Esto compilará (transpilará) el archivo `index.ts` a `index.js`, y se guardara en la misma ubicación (ahora tendremos ambos archivos TS y JS).'
+            },
+            {
+              type: 'p',
+              text: 'Ahora, si vemos el archivo `index.js`, veremos que se ha transpilado a <b>JavaScript</b>, y ya podemos utilizarlo en nuestro proyecto.'
             },
             {
               type: 'code',
-              ...code('terminal', [
-                'tsc -v'
+              ...code('js', [
+                `var mensaje = "Hola mundo!";
+                mensaje = "Variable reasignada!";`
               ])
-            },
-            {
-              type: 'p',
-              text: 'Si se muestra la version de TypeScript, la instalacion fue exitosa.'
             },
           ],
         },

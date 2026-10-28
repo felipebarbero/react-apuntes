@@ -104,7 +104,7 @@ export const react = {
             { 
               type: 'ul', 
               items: [
-                'Descargar Node.js desde el sitio oficial: https://nodejs.org/', 
+                'Descargar Node.js desde el sitio oficial: [https://nodejs.org/](https://nodejs.org/)', 
                 'Ejecutar el instalador y seguir los pasos.',
                 'Verificar la instalación ejecutando el siguiente comando en la terminal:'
               ] 
@@ -132,7 +132,7 @@ export const react = {
             },
             {
               type: 'p',
-              text: 'Vite es la herramienta de desarrollo y de build que arma el proyecto. En desarrollo sirve los módulos al momento; para producción genera el paquete.'
+              text: 'Vite es una herramienta de desarrollo y de build que arma el proyecto. En desarrollo sirve los módulos al momento; para producción genera el paquete.'
             },
             {
               type: 'p',
@@ -150,11 +150,7 @@ export const react = {
             },
             {
               type: 'p',
-              text: 'Luego, podemos seguir los pasos para crear el proyecto.'
-            },
-            {
-              type: 'p',
-              text: 'Para iniciar el proyecto, podemos ejecutar el siguiente comando en la terminal:'
+              text: 'Luego, podemos iniciar un <b>servidor web local</b> para ver el proyecto en el navegador, para esto podemos ejecutar el siguiente comando en la terminal:'
             },
             {
               type: 'code',
@@ -164,11 +160,14 @@ export const react = {
             },
             {
               type: 'p',
-              text: 'Vite no imprime "Server is running". Muestra una línea `Local: http://localhost:5173/`. Si esa dirección abre la app, el proyecto arrancó. El puerto puede cambiar si 5173 ya está ocupado.'
+              text: 'Al hacer esto, Vite mostrará una línea `Local: http://localhost:5173/`. Si esa dirección abre la app, el proyecto arrancó. <b>El puerto puede cambiar si 5173 ya está ocupado</b>.'
             },
             {
-              type: 'p',
-              text: 'El script "npm run dev" es un script que se encuentra en el archivo "package.json" y que nos permite iniciar el proyecto.'
+              type: 'alert',
+              variant: 'info',
+              paragraphs: [
+                'El script <b>"npm run dev"</b> es un script que se encuentra en el archivo <b>"package.json"</b> y que nos permite iniciar el proyecto.',
+              ],
             },
           ],
         },
@@ -496,11 +495,10 @@ export const react = {
     // :::::::::::::::::::::::::::: JSX :::::::::::::::::::::::::::::::::::::::
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     {
-      slug: 'react-jsx',
-      title: 'JSX',
-      keywords: ['xml', 'fragmento', 'expresion', 'llaves', 'html'],
-      summary:
-        'JSX es la sintaxis que mezcla marcado y JavaScript. Las llaves abren una expresión. El archivo se compila a llamadas de React; el navegador no entiende JSX directo.',
+      slug: 'react-archivos-jsx',
+      title: 'Archivos JSX',
+      keywords: ['jsx', 'archivos', 'compilacion', 'javascript', 'html'],
+      summary: 'JSX es la sintaxis que mezcla marcado y JavaScript. Las llaves abren una expresión. El archivo se compila a llamadas de React; el navegador no entiende JSX directo.',
       sections: [
         {
           title: 'Expresiones, no sentencias',
