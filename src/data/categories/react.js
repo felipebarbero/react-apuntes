@@ -244,6 +244,72 @@ export const react = {
       ],
     },
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: BOILERPLATE ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'react-boilerplate',
+      title: 'Boilerplate Explicado',
+      keywords: ['react', 'javascript', 'framework', 'frontend', 'ui', 'user interface', 'boilerplate', 'imagen'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: IMAGEN ::::::::::::::::
+        {
+          title: 'Explicación del Boilerplate de React.',
+          content: [
+            {
+              type: 'p',
+              text: 'El <b>Boilerplate</b> de React es el <b>proyecto base</b> que se crea cuando se inicia un nuevo proyecto de React. Es un proyecto que ya tiene configurado todo lo necesario para empezar a trabajar con React.'
+            },
+            {
+              type: 'p',
+              text: 'Este proyecto suele crearse con el comando `npm create vite@latest nombre-del-proyecto -- --template react`.'
+            },
+            {
+              type: 'p',
+              text: '<b>main.jsx</b>'
+            },
+            {
+              type: 'code',
+              ...code('jsx', [
+                `import { StrictMode } from 'react'; // Ayuda a encontrar problemas potenciales en el desarrollo, añadiendo una ejecución adicional.
+                import { createRoot } from 'react-dom/client'; // Crea una raiz de React para renderizar la aplicación (nuevo en React 18+)
+                import App from './App.jsx'; // El componente principal que contiene la UI de la aplicación
+
+                const root = document.getElementById('root');
+
+                createRoot(document.getElementById('root')).render( // El elemento del DOM donde React monta la aplicación. Usualmente es <div id="root"> en index.html
+                  <StrictMode>
+                        <App /> <!-- Componente principal (raiz) de la aplicación -->
+                  </StrictMode>,
+                );`
+              ])
+            },
+            {
+              type: 'p',
+              text: '<b>App.jsx</b>'
+            },
+            {
+              type: 'code',
+              ...code('jsx', [
+                `export default function App() { // El componente principal que contiene la UI de la aplicación
+                  return <h1>Hola Mundo!</h1>
+                }`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'A continuacion se muestra una imagen con el resumen de lo explicado anteriormente:'
+            },
+            {
+              type: 'image',
+              src: '/imagenes/react/react_boilerplate_explained.jfif',
+              alt: 'Explicación del Boilerplate de React.',
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // :::::::::::::::::::::::::::: COMPONENTES ::::::::::::::::::::::::::::
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     {
@@ -1179,6 +1245,28 @@ export const react = {
               ])
             },
           ]
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: HOOKS MAS USADOS ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'react-hooks-mas-usados',
+      title: 'Hooks mas usados (img)',
+      keywords: ['react', 'javascript', 'framework', 'frontend', 'ui', 'user interface', 'hooks', 'hooks mas usados'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: IMAGEN ::::::::::::::::
+        {
+          title: 'Hooks mas usados',
+          content: [
+            {
+              type: 'image',
+              src: '/imagenes/react/react_react-hooks.jpg',
+              alt: 'Hooks mas usados',
+            },
+          ],
         },
       ],
     },
@@ -2599,6 +2687,28 @@ export const react = {
           ]
         },
       ]
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: PROPS VS USECONTEXT ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'react-props-vs-usecontext',
+      title: 'Props vs useContext (img)',
+      keywords: ['react', 'javascript', 'framework', 'frontend', 'ui', 'user interface', 'props', 'usecontext'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: IMAGEN ::::::::::::::::
+        {
+          title: 'Props vs useContext',
+          content: [
+            {
+              type: 'image',
+              src: '/imagenes/react/react_props-vs-context-API.jpg',
+              alt: 'Props vs useContext',
+            },
+          ],
+        },
+      ],
     },
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // :::::::::::::::::::::::::::: BROWSERROUTER Y RUTAS :::::::::::::::::::::::::::::

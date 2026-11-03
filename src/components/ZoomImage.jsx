@@ -1,4 +1,4 @@
-// Miniatura de una imagen del catálogo. El clic abre el archivo a su tamaño real.
+// Miniatura de una imagen del catálogo. El clic la abre a su tamaño, sin pasar el ancho de la ventana.
 import { useRef } from 'react';
 import RichText from './RichText.jsx';
 

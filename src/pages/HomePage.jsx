@@ -26,7 +26,7 @@ export default function HomePage() {
           </ul>
           <div className="card">
             <div className="card-body">
-              <p className="fw-semibold mb-3"><CategoryIcon src="/imagenes/categorias-iconos/github-142-svgrepo-com.svg" /> Este proyecto esta disponible en GitHub</p>
+              <p className="fw-semibold mb-3"><span className="d-inline-block me-2"><CategoryIcon src="/imagenes/categorias-iconos/github-142-svgrepo-com.svg"/></span> Puedes encontrar este proyecto en <span className="fw-bold">GitHub</span></p>
               <a href="https://github.com/felipebarbero/react-apuntes" target="_blank" rel="noopener noreferrer">
                 <span>https://github.com/felipebarbero/react-apuntes</span>
               </a>

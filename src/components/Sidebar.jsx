@@ -2,29 +2,29 @@
 // El nombre, el tema y el buscador viven en la barra superior.
 import { useState } from 'react';
 import { NavLink, useLocation, useMatch } from 'react-router-dom';
-import { articlePath, countArticles, filterCatalog } from '../data/catalog.js';
+import { articlePath, catalog, countArticles, filterCatalog } from '../data/catalog.js';
 import CategoryIcon from './CategoryIcon.jsx';
 
+// Todas las categorías plegadas, salvo la del apunte que está abierto.
+function collapsedExcept(activeCategoryId) {
+  const next = new Set(catalog.map((category) => category.id));
+  if (activeCategoryId) next.delete(activeCategoryId);
+  return next;
+}
+
 export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavigate }) {
-  // Ids de categorías plegadas. Un Set evita duplicados y hace barata la consulta.
-  const [collapsed, setCollapsed] = useState(() => new Set());
   const location = useLocation();
   const match = useMatch('/docs/:categoryId/:slug');
   const activeCategoryId = match?.params.categoryId ?? '';
+  // Ids de categorías plegadas. Un Set evita duplicados y hace barata la consulta.
+  const [collapsed, setCollapsed] = useState(() => collapsedExcept(activeCategoryId));
   const [collapsedPath, setCollapsedPath] = useState(location.pathname);
 
-  // Al entrar a un apunte, abre su categoría si estaba plegada.
+  // Al cambiar de apunte, deja abierta solo la categoría de esa sección.
   // Se hace durante el render, igual que el cierre del menú en Layout.
   if (collapsedPath !== location.pathname) {
     setCollapsedPath(location.pathname);
-    if (activeCategoryId) {
-      setCollapsed((current) => {
-        if (!current.has(activeCategoryId)) return current;
-        const next = new Set(current);
-        next.delete(activeCategoryId);
-        return next;
-      });
-    }
+    setCollapsed(collapsedExcept(activeCategoryId));
   }
 
   const searching = query.trim().length > 0;

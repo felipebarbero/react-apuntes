@@ -42,6 +42,15 @@ export const typescript = {
             },
             {
               type: 'alert',
+              variant: 'warning',
+              title: 'Importante: Debes saber Javascript',
+              paragraphs: [
+                'TypeScript es un superconjunto de <b>JavaScript</b>, por lo que todo lo que sepas de JavaScript, tambien sabras de TypeScript.',
+                'Sabiendo Javascript ya sabes el 90% de TypeScript, y solo necesitas aprender los conceptos adicionales que TypeScript tiene sobre JavaScript.',
+              ]
+            },
+            {
+              type: 'alert',
               variant: 'info',
               title: 'Usar TypeScript con React',
               paragraphs: [
@@ -303,17 +312,376 @@ export const typescript = {
             },
             {
               type: 'p',
-              text: 'Esto compilará (transpilará) el archivo `index.ts` a `index.js`, y se guardara en la misma ubicación (ahora tendremos ambos archivos TS y JS).'
+              text: 'A continuacion se mencionan algunas de las configuraciones mas importantes que podemos modificar en el archivo `tsconfig.json`:'
+            },
+            {
+              type: 'ul',
+              items: [
+                '<b>`module`</b>: Define el modulo de Node.js que se va a usar.',
+                '<b>`target`</b>: Indica a que version de Javascript se va a transpilar el codigo.',
+                '<b>`rootDir`</b>: Indica donde se encuentran los archivos de Typescript (.ts) (por defecto es "./src")',
+                '<b>`outDir`</b>: Indica donde se van a guardar los archivos compilados (.js) (por defecto es "./dist")',
+                '<b>`strict`</b>: Habilita todas las opciones de verificación de tipos estricta.',
+              ]
+            },
+            {
+              type: 'alert',
+              variant: 'info',
+              paragraphs: [
+                'Si configuraste correctamente el archivo `tsconfig.json` habilitando <b>"rootDir"</b> y <b>"outDir"</b>, podras ejecutar el comando <b>"tsc"</b> en la <b>raiz del proyecto</b> sin necesidad de especificar el archivo o directorio.',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: TIPOS DE DATOS ::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'typescript-tipos-de-datos',
+      title: 'Tipos de Datos',
+      keywords: ['typescript', 'javascript', 'configuracion', 'compilacion', 'tipado', 'tipado estatico'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: TIPOS DE DATOS ::::::::::::::::
+        {
+          title: 'Tipos de Datos',
+          content: [
+            {
+              type: 'p',
+              text: 'Existen varios tipos de datos que son <b>nativos de Javascript</b>, como los siguientes:'
+            },
+            {
+              type: 'ul',
+              items: [
+                '<b>string</b>: Cadena de texto.',
+                '<b>number</b>: Numero.',
+                '<b>boolean</b>: Booleano.',
+                '<b>null</b>: Null.',
+                '<b>undefined</b>: Undefined.',
+                '<b>object</b>: Objeto (incluye arrays, funciones, objetos, etc.)',
+                '<b>function</b>: Funcion.',
+              ]
             },
             {
               type: 'p',
-              text: 'Ahora, si vemos el archivo `index.js`, veremos que se ha transpilado a <b>JavaScript</b>, y ya podemos utilizarlo en nuestro proyecto.'
+              text: 'Y luego tenemos algunos tipos de datos que son <b>adicionales de TypeScript</b>, como los siguientes:'
+            },
+            {
+              type: 'ul',
+              items: [
+                '<b>any</b>: Cualquier tipo de dato. (tratar de no usarlo)',
+                '<b>unknown</b>',
+                '<b>never</b>',
+                '<b>arrays</b>',
+                '<b>tuples</b>',
+                '<b>enums</b>',
+              ]
+            },
+            {
+              type: 'p',
+              text: 'Para asociar un <b>tipo de dato</b> a una <b>variable</b>, se debe usar el símbolo `:` seguido del <b>tipo de dato</b>.'
+            },
+            {
+              type: 'p',
+              text: '<b>Ejemplo de variables con tipos de datos:</b>'
             },
             {
               type: 'code',
-              ...code('js', [
-                `var mensaje = "Hola mundo!";
-                mensaje = "Variable reasignada!";`
+              ...code('ts', [
+                `let extincionDinosaurios: number = 76_000_000; // Podemos escribir numeros de esta forma para que sea mas legible
+                // let extincionDinosaurios: number = 76000000;
+                let dinosaurioFavorito: string = "T-Rex";
+                let extintos: boolean = true;
+                
+                // Luego si quisieramos reasignarlas, esto se debe hacer al mismo tipo de dato que la variable original 
+                extincionDinosaurios = "76000000"; // Error: Type 'string' is not assignable to type 'number'.
+                dinosaurioFavorito = 123; // Error: Type 'number' is not assignable to type 'string'.
+                extintos = "true"; // Error: Type 'string' is not assignable to type 'boolean'.
+                
+                dinosaurioFavorito = "Triceratops"; // Esto no dara error, ya que el nuevo dato es de tipo string`
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: TIPOS INFERIDOS ::::::::::::::::
+        {
+          title: 'Tipos Inferidos',
+          content: [
+            {
+              type: 'p',
+              text: 'Además de los tipos de datos nativos de Javascript, tambien existe una funcionalidad en Typescript llamada <b>tipos inferidos</b>.'
+            },
+            {
+              type: 'p',
+              text: 'Esto permite que el compilador <b>infiera el tipo de dato</b> de una variable basado en el <b>valor que se le asigna</b>.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// El compilador infiere el tipo de dato basado en el valor que se le asigna
+                let extincionDinosaurios = 76_000_000; // Tipo: number
+                let dinosaurioFavorito = "T-Rex"; // Tipo: string
+                let extintos = true; // Tipo: boolean`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Al cambiar el valor de las variables con tipos inferidos, <b>estas funcionan igual que las variables con tipo de dato especificado</b>, es decir, <b>arrojará un error si se intenta reasignar a un tipo de dato diferente al original</b>.'
+            },
+          ],
+        },
+        // :::::::::::::::: TIPOS ANY ::::::::::::::::
+        {
+          title: 'Variables tipo "any"',
+          content: [
+            {
+              type: 'p',
+              text: 'Si inicializamos una variable y no le asignamos un tipo de dato o valor, el compilador <b>inferira el tipo de dato</b> como `any`. Tambien podemos asignarle el tipo `any` <b>explicitamente</b>.'
+            },
+            {
+              type: 'p',
+              text: 'Cuando la variable es de tipo <b>any</b>, podemos asignarle cualquier tipo de dato o valor, y <b>no se arrojara un error de tipo</b>.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// El compilador infiere el tipo de dato basado en el valor que se le asigna
+                let miVariable; // Tipo: any
+                miVariable = "Hola mundo!"; // No se arrojara error
+                miVariable = 123; // No se arrojara error
+                miVariable = true; // No se arrojara error`
+              ])
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              paragraphs: [
+                'Usar variables de tipo `any` es una <b>mala practica</b>, ya que se pierde la <b>seguridad del tipo de dato</b>. Por lo tanto, se debe evitar usar variables de tipo `any` siempre que sea posible.',
+              ],
+            },
+          ],
+        },
+        // :::::::::::::::: TIPOS ARRAY ::::::::::::::::
+        {
+          title: 'Variables tipo "array"',
+          content: [
+            {
+              type: 'p',
+              text: 'Para declarar un <b>array</b>, se debe usar el símbolo `[]` seguido del <b>tipo de dato</b> de los elementos del array.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Declaracion de un array de strings
+                let animales: string[] = ["Perro", "Gato", "Pajaro"];
+                // Declaracion de un array de numeros
+                let numeros: number[] = [1, 2, 3, 4, 5];
+                // Declaracion de un array de booleanos
+                let booleanos: boolean[] = [true, false, true];
+                // Declaracion de un array de objetos
+                let objetos: { nombre: string, edad: number }[] = [{ nombre: "Juan", edad: 20 }, { nombre: "Maria", edad: 25 }];
+                // Declaracion de un array de arrays
+                let arrays: string[][] = [["Perro", "Gato"], ["Pajaro", "Pez"]];
+                
+                // Si inicializamos un arreglo vacío sin especificar el tipo de dato, el compilador inferira el tipo de dato como "any"
+                let miArreglo = []; // Tipo: any`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Otra forma alternativa de declarar un array con su tipo de dato es usando el tipo `Array<tipo>`, donde <b>tipo</b> es el tipo de dato de los elementos del array.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Declaracion de un array de strings
+                let animales: Array<string> = ["Perro", "Gato", "Pajaro"];
+                // Declaracion de un array de numeros
+                let numeros: Array<number> = [1, 2, 3, 4, 5];
+                // Declaracion de un array de booleanos
+                let booleanos: Array<boolean> = [true, false, true];
+                // Declaracion de un array de objetos
+                let objetos: Array<{ nombre: string, edad: number }> = [{ nombre: "Juan", edad: 20 }, { nombre: "Maria", edad: 25 }];
+                // Declaracion de un array de arrays
+                let arrays: Array<Array<string>> = [["Perro", "Gato"], ["Pajaro", "Pez"]];`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Si inicializamos un array vacío sin especificar el tipo de dato, el compilador <b>inferira el tipo de dato</b> como `any`.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `let miArreglo = []; // Tipo: any`
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: TIPOS TUPLES ::::::::::::::::
+        {
+          title: 'Variables tipo "tuples"',
+          content: [
+            {
+              type: 'p',
+              text: 'Una <b>tupla</b> (tuple) es una variable que contiene un set de datos que se encuentran ordenados y que no pueden ser modificados.'
+            },
+            {
+              type: 'p',
+              text: 'Para definir una <b>tupla</b>, se debe usar el símbolo `[]` con el <b>tipo de dato</b> de los elementos de la tupla entre los corchetes.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Declaracion de una tupla de strings y numeros
+                let ejemploTupla: [string, number] = ["Hola", 123];
+
+                // Si la tupla contiene mas elementos que los definidos en la declaracion, arrojara un error
+                let ejemploTupla2: [string, number] = ["Hola", 123, "Mundo"]; // Error: Type '[string, number, string]' is not assignable to type '[string, number]'.
+
+                // Si dentro de la tupla se desea agregar mas elementos, se debe agregar un "..." seguido del tipo de dato de los elementos de la tupla.
+                let ejemploTupla3: [string, number, ...string] = ["Hola", 123, "Mundo", "Hola", "Mundo"];
+                `
+              ])
+            },
+            {
+              type: 'alert',
+              variant: 'info',
+              paragraphs: [
+                'Como recomendacion, lo ideal es <b>acotar la cantidad de elementos</b> dentro de la tupla (Ejemplo 2 o 3 elementos). Si se requiere agregar mas elementos, se recomienda buscar otras soluciones como usar un objeto o un array.',
+              ],
+            },
+          ],
+        },
+        // :::::::::::::::: TIPOS ENUMS ::::::::::::::::
+        {
+          title: 'Variables tipo "enums"',
+          content: [
+            {
+              type: 'p',
+              text: 'El tipo <b>enum</b> (enumerado) es un tipo de dato que representa un <b>conjunto de constantes con nombre</b>.'
+            },
+            {
+              type: 'p',
+              text: 'Se usan normalmente para representar estados, tallas de ropa, etc.'
+            },
+            {
+              type: 'p',
+              text: 'Para definir un <b>enum</b>, se debe usar el símbolo `enum` seguido del <b>nombre del enum</b> (en PascalCase) y los valores de las constantes entre llaves `{}`.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Declaracion de un enum de tallas de ropa
+                // Por defecto, cada posicion del enum tiene un valor numerico que se incrementa de 1 en 1
+                const enum Talla {
+                  CHICA, // 0
+                  MEDIANA, // 1
+                  GRANDE, // 2
+                  EXTRA_GRANDE, // 3
+                }
+                  
+                // Tambien puedo asignarle valores explicitos a cada posicion del enum
+                const enum Talla {
+                  CHICA = 1,
+                  MEDIANA = 2,
+                  GRANDE = 3,
+                  EXTRA_GRANDE = 4,
+                }
+                  
+                // Tambien puedo asignarle valores de tipo string a cada posicion del enum
+                const enum Talla {
+                  CHICA = "S",
+                  MEDIANA = "M",
+                  GRANDE = "L",
+                  EXTRA_GRANDE = "XL",
+                }
+                
+                // Para acceder a los valores de un enum, se debe usar el nombre del enum seguido del nombre de la constante
+                let miTalla = Talla.CHICA; // miTalla sera 0
+                let miTalla2 = Talla.MEDIANA; // miTalla2 sera 1
+                let miTalla3 = Talla.GRANDE; // miTalla3 sera 2
+                let miTalla4 = Talla.EXTRA_GRANDE; // miTalla4 sera 3
+                `
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: TIPOS OBJECT ::::::::::::::::
+        {
+          title: 'Variables tipo "object"',
+          content: [
+            {
+              type: 'p',
+              text: 'En Javascript, los <b>objetos</b> son una coleccion de propiedades (key-value pairs) que se encuentran ordenadas, pero <b>no tienen un tipo de dato especifico</b>.'
+            },
+            {
+              type: 'p',
+              text: 'Es por esto que en Typescript, se debe <b>definir el tipo de dato</b> de los objetos usando una <b>interface</b> o un <b>type</b>.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Declaracion de un objeto en javascript, donde se infieren los tipos de dato de las propiedades
+                let ejemploObjeto = {
+                  nombre: "Juan", // string
+                  edad: 20, // number
+                  casado: true, // boolean
+                };
+                // En el caso anterior, se pueden modificar sus propiedades despues de la declaracion a cualquier tipo de dato
+                ejemploObjeto.nombre = 123; // No se arrojara error
+
+                // Pero en Typescript, se debe definir el tipo de dato de las propiedades del objeto de la siguiente forma:
+                let ejemploObjeto: { nombre: string, edad: number, casado: boolean } = {
+                  nombre: "Juan",
+                  edad: 20,
+                  casado: true,
+                };
+
+                // En el caso anterior, no se pueden modificar las propiedades del objeto a cualquier tipo de dato
+                ejemploObjeto.nombre = 123; // Error: Type 'number' is not assignable to type 'string'.
+
+                // Tambien, si quisieramos declarar propiedades opcionales, se debe usar el símbolo "?" despues del nombre de la propiedad
+                let ejemploObjeto: { nombre: string, edad: number, casado: boolean, email?: string } = {
+                  nombre: "Juan",
+                  edad: 20,
+                  casado: true,
+                };
+
+                // Tambien podemos declarar propiedades de tipo readonly, que no se pueden modificar despues de la declaracion
+                let ejemploObjeto: { readonly nombre: string, edad: number, casado: boolean, email?: string } = {
+                  nombre: "Juan",
+                  edad: 20,
+                  casado: true,
+                };
+                // En el caso anterior, no se pueden modificar las propiedades readonly
+                ejemploObjeto.nombre = "Pedro"; // Error: Cannot assign to 'nombre' because it is a read-only property.
+                `
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien, podemos separar la definicion de tipos del objeto en un <b>type</b>.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Defino el tipo "Persona"
+                type Persona = {
+                  nombre: string;
+                  edad: number;
+                  casado: boolean;
+                };
+
+                // Y ahora puedo usar el tipo "Persona" en el objeto
+                let ejemploObjeto: Persona = {
+                  nombre: "Juan",
+                  edad: 20,
+                  casado: true,
+                };
+                `
               ])
             },
           ],
