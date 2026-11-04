@@ -1,8 +1,13 @@
 import { createContext, useContext } from 'react';
 
+type ThemeValue = {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+};
+
 // El valor inicial es null a propósito. useTheme distingue "nadie proveyó el contexto"
 // de un tema real, que siempre es un objeto { theme, toggleTheme }.
-export const ThemeContext = createContext(null);
+export const ThemeContext = createContext<ThemeValue | null>(null);
 
 // Lee el tema actual. Lanza un error si se usa fuera de ThemeProvider,
 // porque si no el botón de tema fallaría más abajo con un mensaje menos claro.

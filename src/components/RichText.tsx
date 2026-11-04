@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 // Convierte el texto de un apunte en nodos de React.
 // No usa HTML libre: solo reconoce negrita, cursiva y código en línea.
 //
@@ -17,10 +19,25 @@ const HTML_KIND = {
   i: 'em',
   em: 'em',
   code: 'code',
-};
+} as const;
+
+type InlineNode =
+  | string
+  | { kind: 'code'; raw: string }
+  | { kind: 'link'; href: string; children: InlineNode[] }
+  | { kind: 'both' | 'strong' | 'em'; children: InlineNode[] };
+
+type Marker =
+  | { kind: 'both' | 'strong' | 'em'; start: number; innerStart: number; innerEnd: number; end: number }
+  | { kind: 'code'; start: number; raw: string; end: number }
+  | { kind: 'link'; start: number; href: string; innerStart: number; innerEnd: number; end: number };
+
+function isHtmlTag(name: string): name is keyof typeof HTML_KIND {
+  return Object.hasOwn(HTML_KIND, name);
+}
 
 // El primer asterisco de un par ** no cierra una cursiva.
-function findSingleStar(text, from) {
+function findSingleStar(text: string, from: number) {
   for (let index = from; index < text.length; index += 1) {
     if (text[index] === '*' && text[index - 1] !== '*' && text[index + 1] !== '*') return index;
   }
@@ -29,7 +46,7 @@ function findSingleStar(text, from) {
 
 // Primer marcador con cierre, leyendo desde `from`.
 // `start` es donde empieza el marcador; `innerStart`/`innerEnd` es el contenido.
-function nextMarker(text, from) {
+function nextMarker(text: string, from: number): Marker | null {
   for (let index = from; index < text.length; index += 1) {
     if (text.startsWith('***', index)) {
       const end = text.indexOf('***', index + 3);
@@ -91,17 +108,12 @@ function nextMarker(text, from) {
       const name = tag[1].toLowerCase();
       const rest = text.slice(index + tag[0].length);
       const close = new RegExp(`</${name}>`, 'i').exec(rest);
-      if (close) {
+      if (close && isHtmlTag(name)) {
         const innerStart = index + tag[0].length;
         const innerEnd = innerStart + close.index;
-        return {
-          kind: HTML_KIND[name],
-          start: index,
-          raw: name === 'code' ? rest.slice(0, close.index) : undefined,
-          innerStart,
-          innerEnd,
-          end: innerEnd + close[0].length,
-        };
+        const end = innerEnd + close[0].length;
+        if (name === 'code') return { kind: 'code', start: index, raw: rest.slice(0, close.index), end };
+        return { kind: HTML_KIND[name], start: index, innerStart, innerEnd, end };
       }
     }
   }
@@ -110,7 +122,8 @@ function nextMarker(text, from) {
 }
 
 // Solo direcciones web, correo o una ruta de este sitio. El resto se deja como texto.
-function safeHref(raw) {
+function safeHref(raw: string | undefined) {
+  if (!raw) return null;
   const href = raw.trim();
   if (href.startsWith('/') && !href.startsWith('//')) return href;
 
@@ -125,8 +138,8 @@ function safeHref(raw) {
 }
 
 // Lista de strings y de marcas. El código en línea no se vuelve a interpretar.
-function parseInline(text) {
-  const nodes = [];
+function parseInline(text: string): InlineNode[] {
+  const nodes: InlineNode[] = [];
   let cursor = 0;
 
   while (cursor < text.length) {
@@ -149,7 +162,7 @@ function parseInline(text) {
   return nodes;
 }
 
-function renderInline(nodes, keyPrefix) {
+function renderInline(nodes: readonly InlineNode[], keyPrefix: string): ReactNode {
   return nodes.map((node, index) => {
     const key = `${keyPrefix}-${index}`;
     if (typeof node === 'string') return <span key={key}>{node}</span>;
@@ -173,7 +186,7 @@ function renderInline(nodes, keyPrefix) {
   });
 }
 
-export default function RichText({ text }) {
+export default function RichText({ text }: { text?: string | null }) {
   if (!text) return null;
   return renderInline(parseInline(String(text)), 't');
 }

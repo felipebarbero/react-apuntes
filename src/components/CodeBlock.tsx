@@ -12,13 +12,13 @@ import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
 import oneDark from 'react-syntax-highlighter/dist/esm/styles/prism/one-dark';
 import oneLight from 'react-syntax-highlighter/dist/esm/styles/prism/one-light';
-import { useTheme } from '../theme/theme-context.js';
+import { useTheme } from '../theme/theme-context.ts';
 
 // Quita la sangría del archivo y deja la del ejemplo.
 // Si todas las líneas comparten espacios, se restan esos.
 // Si la primera línea (por ejemplo "{") no tiene y el resto tiene más de 4,
 // esos espacios son la columna del catálogo, no el código.
-function dedent(text) {
+function dedent(text: string) {
   const lines = text.split('\n');
   let start = 0;
   let end = lines.length;
@@ -27,7 +27,7 @@ function dedent(text) {
   const body = lines.slice(start, end);
   if (body.length === 0) return '';
 
-  const leading = (line) => line.match(/^ */)[0].length;
+  const leading = (line: string) => line.match(/^ */)?.[0].length ?? 0;
   const indents = body.filter((line) => line.trim() !== '').map(leading);
   const minAll = Math.min(...indents);
   let base = minAll;
@@ -64,14 +64,14 @@ const LABELS = {
   text: 'Texto',
 };
 
-export default function CodeBlock({ language = 'text', value }) {
+export default function CodeBlock({ language = 'text', value }: { language: string, value: string }) {
   const { theme } = useTheme();
   const [copied, setCopied] = useState(false);
   // Id del temporizador que vuelve a poner el botón en "Copiar".
   const resetRef = useRef(0);
   const code = dedent(value).trim();
   const isTerminal = language === 'terminal';
-  const label = LABELS[language] ?? language;
+  const label = LABELS[language as keyof typeof LABELS] ?? language;
 
   // Si el componente se desmonta con el aviso "Copiado" todavía visible, cancela el temporizador.
   useEffect(() => () => window.clearTimeout(resetRef.current), []);
@@ -144,7 +144,7 @@ export default function CodeBlock({ language = 'text', value }) {
 
 // Consola. El $ es decorativo: no entra en la selección ni en el texto que copia el botón.
 // Si la línea ya trae "$ ", no se añade otro.
-function TerminalScreen({ text }) {
+function TerminalScreen({ text }: { text: string }) {
   const lines = text.split('\n');
 
   return (

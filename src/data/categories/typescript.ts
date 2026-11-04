@@ -1,4 +1,4 @@
-import { code } from '../code.js';
+import { code } from '../code.ts';
 
 // Categoría TypeScript. El formato de cada apunte está descrito en src/data/catalog.js.
 
@@ -160,6 +160,37 @@ export const typescript = {
             },
           ],
         },
+        // :::::::::::::::: INSTALAR TYPESCRIPT EN UN PROYECTO REACT ::::::::::::::::
+        {
+          title: 'Instalar TypeScript en React',
+          content: [
+            {
+              type: 'p',
+              text: 'Si ya tenemos un proyecto <b>React</b>, podemos instalar TypeScript de la misma manera que en un proyecto normal, pero a esto hay que agregar las <b>dependencias adicionales de React</b>.'
+            },
+            {
+              type: 'p',
+              text: 'Simplemente posicionate en la <b>raiz del proyecto React</b> y ejecuta el siguiente comando en la terminal:'
+            },
+            {
+              type: 'code',
+              ...code('terminal', [
+                'npm install --save-dev typescript @types/react @types/react-dom'
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Esto instalará <b>TypeScript</b> en el proyecto <b>React</b>, incluyendo las <b>definiciones de tipo de React</b>, que le enseñan a Typescript qué es un componente, un useState o un evento de React.'
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              paragraphs: [
+                'Posterior a esto deberás crear el archivo de configuracion <b>tsconfig.json</b> en la raiz del proyecto, como se explica en la sección de <b>Configuración</b>, y cambiar la extensión de los archivos a `.tsx` según corresponda.',
+              ]
+            },
+          ],
+        },
       ],
     },
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -167,7 +198,7 @@ export const typescript = {
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     {
       slug: 'typescript-archivos-ts',
-      title: 'Archivos TS',
+      title: 'Archivos TS/TSX',
       keywords: ['typescript', 'javascript', 'archivos', 'compilacion', 'tipado', 'tipado estatico'],
       summary: '',
       sections: [
@@ -221,6 +252,40 @@ export const typescript = {
                 `var mensaje = "Hola mundo!";
                 mensaje = "Variable reasignada!";`
               ])
+            },
+          ],
+        },
+        // :::::::::::::::: ARCHIVOS TSX ::::::::::::::::
+        {
+          title: 'Archivos TSX',
+          content: [
+            {
+              type: 'p',
+              text: 'En <b>TypeScript</b>, los archivos con extension `.tsx` son archivos de <b>React</b> (TypeScript con JSX).'
+            },
+            {
+              type: 'p',
+              text: 'Esta extension es necesaria si el archivo es un <b>componente de React</b> y vas a devolver un <b>JSX (HTML en JavaScript)</b>, en caso contrario, se puede usar el archivo con extension `.ts` sin problemas.'
+            },
+            {
+              type: 'code',
+              ...code('tsx', [
+                `const MiComponente = () => {
+                  return (
+                    <div>
+                      <h1>Hola mundo!</h1>
+                    </div>
+                  );
+                };
+                export default MiComponente;`
+              ])
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              paragraphs: [
+                'Recuerda que si en <b>React</b> tenias archivos `.jsx`, deberás cambiar la extension a `.tsx`, para que <b>Typescript</b> pueda entenderlos como <b>componentes de React</b>.',
+              ]
             },
           ],
         },

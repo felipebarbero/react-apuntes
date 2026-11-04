@@ -1,4 +1,4 @@
-import { code } from '../code.js';
+import { code } from '../code.ts';
 
 // Categoría JavaScript. El formato de cada apunte está descrito en src/data/catalog.js.
 

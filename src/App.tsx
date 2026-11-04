@@ -1,9 +1,9 @@
 // Define las rutas. El panel, el buscador y el tema viven en Layout y no se desmontan al cambiar de página.
 import { Route, Routes } from 'react-router-dom';
-import Layout from './components/Layout.jsx';
-import DocPage from './pages/DocPage.jsx';
-import HomePage from './pages/HomePage.jsx';
-import NotFound from './pages/NotFound.jsx';
+import Layout from './components/Layout.tsx';
+import DocPage from './pages/DocPage.tsx';
+import HomePage from './pages/HomePage.tsx';
+import NotFound from './pages/NotFound.tsx';
 
 export default function App() {
   return (

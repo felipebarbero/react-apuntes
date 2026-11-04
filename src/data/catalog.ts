@@ -62,8 +62,61 @@
 
 // Cada categoría está en src/data/categories/. El atajo code() está en src/data/code.js.
 
-import { react } from './categories/react.js';
-import { typescript } from './categories/typescript.js';
+import { react } from './categories/react.ts';
+import { typescript } from './categories/typescript.ts';
+
+// Una sección puede traer `content` (orden libre) o los campos sueltos.
+// El tipo los deja todos opcionales para que cada apunte use solo los que necesita.
+export type FlowBlock = {
+  type: string;
+  text?: string;
+  items?: readonly string[];
+  variant?: string;
+  title?: string;
+  paragraphs?: readonly string[];
+  src?: string;
+  alt?: string;
+  width?: number | string;
+  height?: number | string;
+  caption?: string;
+  language?: string;
+  value?: string;
+};
+
+export type Section = {
+  title: string;
+  content?: readonly FlowBlock[];
+  blocks?: readonly FlowBlock[];
+  paragraphs?: readonly string[];
+  bullets?: readonly string[];
+  alerts?: readonly {
+    variant?: string;
+    title?: string;
+    paragraphs?: readonly string[];
+    text?: string | readonly string[];
+  }[];
+  images?: readonly {
+    src: string;
+    alt: string;
+    width?: number | string;
+    height?: number | string;
+    caption?: string;
+  }[];
+  note?: string;
+  code?: { language: string; value: string };
+};
+
+type DocArticle = {
+  slug: string;
+  title: string;
+  keywords: readonly string[];
+  summary?: string;
+  sections: readonly Section[];
+};
+
+function asDocArticle<T extends DocArticle>(article: T): DocArticle {
+  return article;
+}
 //import { javascript } from './categories/javascript.js';
 //import { ia } from './categories/ia.js';
 
@@ -71,7 +124,7 @@ export const catalog = [react, typescript];
 
 // Quita tildes y pasa a minúsculas para que "módulo" coincida con "modulo".
 // NFD separa la letra del acento; el replace borra esas marcas.
-function normalize(value) {
+function normalize(value: string) {
   return value
     .normalize('NFD')
     .replace(/\p{Diacritic}/gu, '')
@@ -79,24 +132,24 @@ function normalize(value) {
 }
 
 // Arma la URL de un apunte. La usan el panel, el inicio y las flechas.
-export function articlePath(categoryId, slug) {
+export function articlePath(categoryId: string, slug: string) {
   return `/docs/${categoryId}/${slug}`;
 }
 
 // Busca la pareja categoría + apunte. null si la URL no corresponde a nada del catálogo.
-export function getDoc(categoryId, slug) {
+export function getDoc(categoryId: string, slug: string) {
   const category = catalog.find((item) => item.id === categoryId);
   const article = category?.items.find((item) => item.slug === slug);
 
   if (!category || !article) return null;
 
-  return { category, article };
+  return { category, article: asDocArticle(article) };
 }
 
 // Devuelve el apunte de antes y el de después, en el orden en que están escritos arriba.
 // El último de una categoría tiene como siguiente el primero de la categoría que sigue.
 // Si el slug no existe, los dos son null.
-export function getNeighbors(categoryId, slug) {
+export function getNeighbors(categoryId: string, slug: string) {
   const flat = catalog.flatMap((category) =>
     category.items.map((article) => ({ category, article })),
   );
@@ -116,7 +169,7 @@ export function getNeighbors(categoryId, slug) {
 // Sin texto, devuelve todo. Si el título o la descripción de la categoría coinciden,
 // conserva todos sus apuntes. Si no, deja solo los apuntes cuyo título, resumen
 // o keywords contienen el texto. Las categorías que quedan vacías se descartan.
-export function filterCatalog(query) {
+export function filterCatalog(query: string) {
   const normalizedQuery = normalize(query.trim());
 
   if (!normalizedQuery) return catalog;
@@ -139,7 +192,7 @@ export function filterCatalog(query) {
 }
 
 // Cuenta apuntes de la lista que se está mostrando, ya filtrada o completa.
-export function countArticles(categories) {
+export function countArticles(categories: { items: { length: number } }[]) {
   return categories.reduce((total, category) => total + category.items.length, 0);
 }
 

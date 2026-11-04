@@ -1,12 +1,12 @@
 // Cascarón de la aplicación: barra fija, panel y el hueco donde entra cada página.
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useMatch } from 'react-router-dom';
-import DocArrows from './DocArrows.jsx';
-import HandMotionToggle from './HandMotionToggle.jsx';
-import PageTransition from './PageTransition.jsx';
-import SearchBox from './SearchBox.jsx';
-import Sidebar from './Sidebar.jsx';
-import ThemeToggle from './ThemeToggle.jsx';
+import DocArrows from './DocArrows.tsx';
+import HandMotionToggle from './HandMotionToggle.tsx';
+import PageTransition from './PageTransition.tsx';
+import SearchBox from './SearchBox.tsx';
+import Sidebar from './Sidebar.tsx';
+import ThemeToggle from './ThemeToggle.tsx';
 import { img } from 'framer-motion/client';
 
 // 991.98px es el corte de Bootstrap justo debajo de lg (992px).
@@ -63,7 +63,7 @@ export default function Layout() {
   }, [menuOpen, isMobile]);
 
   // Al escribir en el móvil se abre el índice: si no, el filtro no se vería.
-  function handleQueryChange(value) {
+  function handleQueryChange(value: string) {
     setQuery(value);
     if (isMobile && value.trim()) setMenuOpen(true);
   }

@@ -2,17 +2,17 @@
 // El nombre, el tema y el buscador viven en la barra superior.
 import { useState } from 'react';
 import { NavLink, useLocation, useMatch } from 'react-router-dom';
-import { articlePath, catalog, countArticles, filterCatalog } from '../data/catalog.js';
-import CategoryIcon from './CategoryIcon.jsx';
+import { articlePath, catalog, countArticles, filterCatalog } from '../data/catalog.ts';
+import CategoryIcon from './CategoryIcon.tsx';
 
 // Todas las categorías plegadas, salvo la del apunte que está abierto.
-function collapsedExcept(activeCategoryId) {
+function collapsedExcept(activeCategoryId: string) {
   const next = new Set(catalog.map((category) => category.id));
   if (activeCategoryId) next.delete(activeCategoryId);
   return next;
 }
 
-export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavigate }) {
+export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavigate }: { query: string, mobileOpen: boolean, hiddenFromKeyboard: boolean, onNavigate: () => void }) {
   const location = useLocation();
   const match = useMatch('/docs/:categoryId/:slug');
   const activeCategoryId = match?.params.categoryId ?? '';
@@ -33,7 +33,7 @@ export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavig
 
   // Pliega o despliega una categoría. Durante una búsqueda no hace nada:
   // los resultados tienen que verse todos, aunque la categoría estuviera cerrada.
-  function toggleCategory(categoryId) {
+  function toggleCategory(categoryId: string) {
     if (searching) return;
 
     setCollapsed((current) => {
@@ -136,7 +136,7 @@ export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavig
 }
 
 // El conteo se lee en voz alta, así que 0 y 1 tienen frase propia.
-function searchStatus(total) {
+function searchStatus(total: number) {
   if (total === 0) return 'Ningún apunte';
   if (total === 1) return '1 apunte';
   return `${total} apuntes`;
@@ -148,7 +148,7 @@ function HandCursor() {
 }
 
 // La clase "open" gira el chevron en CSS. El svg no tiene lógica propia.
-function Chevron({ open }) {
+function Chevron({ open }: { open: boolean }) {
   return (
     <svg className={open ? 'chevron open' : 'chevron'} viewBox="0 0 16 16" aria-hidden="true">
       <path d="M4 6.2 8 10l4-3.8" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />

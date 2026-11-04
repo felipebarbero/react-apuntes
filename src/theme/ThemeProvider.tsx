@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { ThemeContext } from './theme-context.js';
+import { useEffect, useState, type ReactNode } from 'react';
+import { ThemeContext } from './theme-context.ts';
 
 // Misma clave que el script de index.html. Los dos tienen que coincidir
 // para que el tema elegido sobreviva a una recarga sin un destello del tema contrario.
@@ -9,7 +9,7 @@ const STORAGE_KEY = 'apuntes-theme';
 // 1. Lo guardado en localStorage, si es "light" o "dark".
 // 2. Si no hay nada guardado, la preferencia del sistema.
 // 3. Si el navegador bloquea localStorage, modo claro.
-function getInitialTheme() {
+function getInitialTheme(): 'light' | 'dark' {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === 'light' || saved === 'dark') return saved;
@@ -21,7 +21,7 @@ function getInitialTheme() {
 }
 
 // Envuelve la app y reparte el tema y la función para cambiarlo.
-export default function ThemeProvider({ children }) {
+export default function ThemeProvider({ children }: { children: ReactNode }) {
   // La función inicial de useState se ejecuta una sola vez, no en cada render.
   const [theme, setTheme] = useState(getInitialTheme);
 

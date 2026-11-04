@@ -1,13 +1,13 @@
 // Página de un apunte. La URL trae la categoría y el slug; el contenido sale del catálogo.
 import { Link, useParams } from 'react-router-dom';
-import CodeBlock from '../components/CodeBlock.jsx';
-import RichText from '../components/RichText.jsx';
-import ZoomImage from '../components/ZoomImage.jsx';
-import { getDoc } from '../data/catalog.js';
-import { usePageTitle } from '../hooks/usePageTitle.js';
+import CodeBlock from '../components/CodeBlock.tsx';
+import RichText from '../components/RichText.tsx';
+import ZoomImage from '../components/ZoomImage.tsx';
+import { getDoc, type FlowBlock } from '../data/catalog.ts';
+import { usePageTitle } from '../hooks/usePageTitle.ts';
 
 // Solo estas variantes existen en Bootstrap. Cualquier otra cae en "info".
-const ALERT_VARIANTS = new Set(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']);
+const ALERT_VARIANTS = new Set<string>(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']);
 
 export default function DocPage() {
   // Los valores por defecto evitan undefined si la ruta todavía no tiene parámetros.
@@ -93,7 +93,7 @@ export default function DocPage() {
                   alt={image.alt}
                   width={image.width}
                   height={image.height}
-                  caption={image.caption}
+                  caption={image.caption ?? ''}
                 />
               ))}
               {section.note && (
@@ -112,7 +112,7 @@ export default function DocPage() {
 }
 
 // Un ítem de `content`. El orden del array es el orden en la página.
-function SectionBlock({ block }) {
+function SectionBlock({ block }: { block: FlowBlock }) {
   if (block.type === 'p') {
     return (
       <p className="mt-3 mb-0">
@@ -134,8 +134,16 @@ function SectionBlock({ block }) {
   }
 
   if (block.type === 'alert') return <Alert variant={block.variant} title={block.title} texts={alertTexts(block)} />;
-  if (block.type === 'image') {
-    return <ZoomImage src={block.src} alt={block.alt} width={block.width} height={block.height} caption={block.caption} />;
+  if (block.type === 'image' && block.src) {
+    return (
+      <ZoomImage
+        src={block.src}
+        alt={block.alt ?? ''}
+        width={block.width}
+        height={block.height}
+        caption={block.caption ?? ''}
+      />
+    );
   }
   if (block.type === 'note') {
     return (
@@ -144,21 +152,21 @@ function SectionBlock({ block }) {
       </p>
     );
   }
-  if (block.type === 'code') return <CodeBlock language={block.language} value={block.value} />;
+  if (block.type === 'code' && block.language && block.value) return <CodeBlock language={block.language} value={block.value} />;
 
   return null;
 }
 
 // Junta paragraphs y text. text puede ser un párrafo o una lista de párrafos.
 // Así los avisos viejos, que solo traen text, siguen pintándose igual.
-function alertTexts(source) {
+function alertTexts(source: { paragraphs?: readonly string[]; text?: string | readonly string[] }) {
   const paragraphs = Array.isArray(source.paragraphs) ? source.paragraphs : [];
   const text = Array.isArray(source.text) ? source.text : source.text ? [source.text] : [];
   return [...paragraphs, ...text].filter((paragraph) => paragraph);
 }
 
-function Alert({ variant, title, texts }) {
-  const name = ALERT_VARIANTS.has(variant) ? variant : 'info';
+function Alert({ variant, title, texts }: { variant?: string; title?: string; texts: readonly string[] }) {
+  const name = variant && ALERT_VARIANTS.has(variant) ? variant : 'info';
   if (!title && texts.length === 0) return null;
 
   return (

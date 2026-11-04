@@ -1,15 +1,15 @@
 // Miniatura de una imagen del catálogo. El clic la abre a su tamaño, sin pasar el ancho de la ventana.
 import { useRef } from 'react';
-import RichText from './RichText.jsx';
+import RichText from './RichText.tsx';
 
 // Un número son pixeles. Un string se usa tal cual: '50%', '12rem', '240px'.
-function toCss(value) {
+function toCss(value: number | string | undefined | null | '') {
   if (value === undefined || value === null || value === '') return undefined;
   return typeof value === 'number' ? `${value}px` : value;
 }
 
-export default function ZoomImage({ src, alt = '', width, height, caption }) {
-  const dialogRef = useRef(null);
+export default function ZoomImage({ src, alt = '', width, height, caption }: { src: string, alt: string, width: number | string | undefined | null | '', height: number | string | undefined | null | '', caption: string }) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const cssWidth = toCss(width);
   const cssHeight = toCss(height);
 

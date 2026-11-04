@@ -2,7 +2,7 @@
 // Están fuera de PageTransition: si vivieran dentro, el transform de la animación
 // convertiría position:fixed en algo que se mueve con el scroll.
 import { Link, useMatch } from 'react-router-dom';
-import { articlePath, getNeighbors } from '../data/catalog.js';
+import { articlePath, getNeighbors } from '../data/catalog.ts';
 
 export default function DocArrows() {
   // null cuando la URL no es un apunte (inicio o 404). En ese caso no hay flechas.
@@ -44,7 +44,7 @@ export default function DocArrows() {
 }
 
 // Solo el trazo de la flecha. El nombre del apunte destino va en aria-label, no en pantalla.
-function ArrowIcon({ direction }) {
+function ArrowIcon({ direction }: { direction: 'prev' | 'next' }) {
   const previous = direction === 'prev';
 
   return (

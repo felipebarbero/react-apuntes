@@ -1,6 +1,6 @@
 // Página para cualquier URL que no sea el inicio ni un apunte del catálogo.
 import { Link } from 'react-router-dom';
-import { usePageTitle } from '../hooks/usePageTitle.js';
+import { usePageTitle } from '../hooks/usePageTitle.ts';
 
 export default function NotFound() {
   usePageTitle('No encontrado');

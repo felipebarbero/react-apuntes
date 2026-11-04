@@ -2,8 +2,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App.jsx';
-import ThemeProvider from './theme/ThemeProvider.jsx';
+import App from './App.tsx';
+import ThemeProvider from './theme/ThemeProvider.tsx';
 // Bootstrap primero y los estilos propios después, para que las reglas de index.css ganen.
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';

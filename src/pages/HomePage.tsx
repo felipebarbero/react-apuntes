@@ -1,8 +1,8 @@
 // Portada. Explica el proyecto y lista los temas del catálogo con enlace a cada apunte.
 import { Link } from 'react-router-dom';
-import { articlePath, catalog } from '../data/catalog.js';
-import CategoryIcon from '../components/CategoryIcon.jsx';
-import { usePageTitle } from '../hooks/usePageTitle.js';
+import { articlePath, catalog } from '../data/catalog.ts';
+import CategoryIcon from '../components/CategoryIcon.tsx';
+import { usePageTitle } from '../hooks/usePageTitle.ts';
 
 export default function HomePage() {
   usePageTitle('Inicio');

@@ -1,4 +1,4 @@
-import { code } from '../code.js';
+import { code } from '../code.ts';
 
 // Categoría Inteligencia artificial. El formato de cada apunte está descrito en src/data/catalog.js.
 

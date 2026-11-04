@@ -1,4 +1,4 @@
-import { useTheme } from '../theme/theme-context.js';
+import { useTheme } from '../theme/theme-context.ts';
 
 // Botón que cambia entre modo claro y oscuro.
 // className permite ocultarlo en un sitio (el panel, en móvil) sin duplicar el botón.
