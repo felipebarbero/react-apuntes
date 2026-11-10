@@ -18,6 +18,7 @@ export const typescript = {
       keywords: ['TypeScript', 'javascript', 'tipos', 'tipado', 'tipado estatico', 'tipado dinamico'],
       summary: '',
       sections: [
+        // :::::::::::::::: QUE ES TYPESCRIPT? ::::::::::::::::
         {
           title: 'Que es TypeScript?',
           content: [
@@ -49,14 +50,26 @@ export const typescript = {
                 'Sabiendo Javascript ya sabes el 90% de TypeScript, y solo necesitas aprender los conceptos adicionales que TypeScript tiene sobre JavaScript.',
               ]
             },
-            {
-              type: 'alert',
-              variant: 'info',
-              title: 'Usar TypeScript con React',
-              paragraphs: [
-                'De manera predeterminada, TypeScript <b>soporta JSX</b> (React) y puedes obtener soporte completo para React Web añadiendo <b>@types/react</b> y <b>@types/react-dom</b> a tu proyecto React.',
-              ]
+          ],
+        },
+        // :::::::::::::::: DONDE USAR TYPESCRIPT? ::::::::::::::::
+        {
+          title: 'Donde usar TypeScript?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Typescript sirve como <b>capa de validación de datos</b> tanto en el <b>frontend</b> como en el <b>backend</b>, validando los datos antes de que lleguen a la base de datos o a la capa de negocio.' 
             },
+            { 
+              type: 'p', 
+              text: 'A continuación puedes ver un ejemplo de como <b>Typescript</b> se utiliza en distintas herramientas de desarrollo para la validación de datos.' 
+            },
+            {
+              type: 'image',
+              src: '/imagenes/typescript/typescript_que-esta-pasando-con-typescript.jpg',
+              alt: 'Que esta pasando con TypeScript',
+            },
+
           ],
         },
       ],
@@ -194,7 +207,7 @@ export const typescript = {
       ],
     },
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    // :::::::::::::::::::::::::::: ARCHIVOS TS ::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: ARCHIVOS TS/TSX ::::::::::::::::::::::::::::
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     {
       slug: 'typescript-archivos-ts',
@@ -257,7 +270,7 @@ export const typescript = {
         },
         // :::::::::::::::: ARCHIVOS TSX ::::::::::::::::
         {
-          title: 'Archivos TSX',
+          title: 'Archivos TSX (React)',
           content: [
             {
               type: 'p',
@@ -420,13 +433,13 @@ export const typescript = {
             {
               type: 'ul',
               items: [
-                '<b>string</b>: Cadena de texto.',
-                '<b>number</b>: Numero.',
-                '<b>boolean</b>: Booleano.',
-                '<b>null</b>: Null.',
-                '<b>undefined</b>: Undefined.',
-                '<b>object</b>: Objeto (incluye arrays, funciones, objetos, etc.)',
-                '<b>function</b>: Funcion.',
+                '<b>string</b>: Cadena de texto. (Ej. "Hola mundo")',
+                '<b>number</b>: Numero. (Ej. 123)',
+                '<b>boolean</b>: Booleano. (Ej. true o false)',
+                '<b>null</b>: Null. (Ej. null)',
+                '<b>undefined</b>: Undefined. (Ej. undefined)',
+                '<b>object</b>: Objeto (incluye arrays, funciones, objetos, etc.). (Ej. { nombre: "Juan", edad: 20 })',
+                '<b>function</b>: Funcion. (Ej. function() { console.log("Hola mundo"); })',
               ]
             },
             {
@@ -437,11 +450,11 @@ export const typescript = {
               type: 'ul',
               items: [
                 '<b>any</b>: Cualquier tipo de dato. (tratar de no usarlo)',
-                '<b>unknown</b>',
-                '<b>never</b>',
-                '<b>arrays</b>',
-                '<b>tuples</b>',
-                '<b>enums</b>',
+                '<b>unknown</b>: Cualquier tipo de dato. (mas seguro que any)',
+                '<b>never</b>: Tipo que no devuelve ningun valor. (Ej. void)',
+                '<b>arrays</b>: Arreglo de elementos. (Ej. [1, 2, 3])',
+                '<b>tuples</b>: Tupla de elementos. (Ej. ["Hola", 123])',
+                '<b>enums</b>: Enumerado de constantes. (Ej. enum Color { ROJO, VERDE, AZUL })',
               ]
             },
             {
@@ -455,17 +468,21 @@ export const typescript = {
             {
               type: 'code',
               ...code('ts', [
-                `let extincionDinosaurios: number = 76_000_000; // Podemos escribir numeros de esta forma para que sea mas legible
-                // let extincionDinosaurios: number = 76000000;
-                let dinosaurioFavorito: string = "T-Rex";
-                let extintos: boolean = true;
+                `let variableNumber: number = 12345;
+                let variableNumber2: number = 123_456; // Podemos escribir numeros con "_" para que sea mas legible
+                let variableString: string = "Hola a todos!";
+                let variableBoolean: boolean = true;
+
+                // Para reasignar una variable, se debe asignar el mismo tipo de dato que la variable original
+                variableNumber = 123456789;
+                variableNumber2 = 911;
+                variableString = "Juan Gonzalez";
+                variableBoolean = false;
                 
-                // Luego si quisieramos reasignarlas, esto se debe hacer al mismo tipo de dato que la variable original 
-                extincionDinosaurios = "76000000"; // Error: Type 'string' is not assignable to type 'number'.
-                dinosaurioFavorito = 123; // Error: Type 'number' is not assignable to type 'string'.
-                extintos = "true"; // Error: Type 'string' is not assignable to type 'boolean'.
-                
-                dinosaurioFavorito = "Triceratops"; // Esto no dara error, ya que el nuevo dato es de tipo string`
+                // Si intentamos reasignar una variable a un tipo de dato diferente al original, arrojara un error
+                variableNumber = "76000000"; // Error: Type 'string' is not assignable to type 'number'.
+                variableString = 123; // Error: Type 'number' is not assignable to type 'string'.
+                variableBoolean = "true"; // Error: Type 'string' is not assignable to type 'boolean'.`
               ])
             },
           ],
@@ -476,24 +493,31 @@ export const typescript = {
           content: [
             {
               type: 'p',
-              text: 'Además de los tipos de datos nativos de Javascript, tambien existe una funcionalidad en Typescript llamada <b>tipos inferidos</b>.'
+              text: 'Además de los tipos de datos nativos de Javascript, Typescript tambien es capas de <b>inferir el tipo de dato</b> de una variable basado en el <b>valor que se le asigna inicialmente</b>.'
             },
             {
               type: 'p',
-              text: 'Esto permite que el compilador <b>infiera el tipo de dato</b> de una variable basado en el <b>valor que se le asigna</b>.'
+              text: 'Esto permite que el compilador <b>infiera el tipo de dato</b> de una variable basado en el <b>valor que se le asigna inicialmente</b>.'
             },
             {
               type: 'code',
               ...code('ts', [
                 `// El compilador infiere el tipo de dato basado en el valor que se le asigna
-                let extincionDinosaurios = 76_000_000; // Tipo: number
-                let dinosaurioFavorito = "T-Rex"; // Tipo: string
-                let extintos = true; // Tipo: boolean`
+                let variable1 = 123; // Tipo: number
+                let variable2 = "Rodrigo"; // Tipo: string
+                let variable3 = true; // Tipo: boolean
+                
+                // Tambien se puede inferir el tipo de dato en base al resultado de una operacion
+                let a = 5; // Number
+                let b = 3; // Number
+                let c = a + b; // Number
+                
+                `
               ])
             },
             {
               type: 'p',
-              text: 'Al cambiar el valor de las variables con tipos inferidos, <b>estas funcionan igual que las variables con tipo de dato especificado</b>, es decir, <b>arrojará un error si se intenta reasignar a un tipo de dato diferente al original</b>.'
+              text: 'Al cambiar el valor de las variables con tipos inferidos, estas funcionan igual que las variables con tipo de dato especificado, es decir, <b>arrojará un error si se intenta reasignar a un tipo de dato diferente al original</b>.'
             },
           ],
         },
@@ -512,18 +536,20 @@ export const typescript = {
             {
               type: 'code',
               ...code('ts', [
-                `// El compilador infiere el tipo de dato basado en el valor que se le asigna
-                let miVariable; // Tipo: any
-                miVariable = "Hola mundo!"; // No se arrojara error
-                miVariable = 123; // No se arrojara error
-                miVariable = true; // No se arrojara error`
+                `let miVariable; // Tipo: any
+                miVariable = "Hola mundo!"; // No arrojara error
+                miVariable = 123; // No arrojara error
+                miVariable = true; // No arrojara error
+                
+                // Tambien podemos definir variables de tipo any explicitamente
+                let miVariable: any = 123456; // Esto puede ser cambiado a cualquier tipo de dato`
               ])
             },
             {
               type: 'alert',
               variant: 'warning',
               paragraphs: [
-                'Usar variables de tipo `any` es una <b>mala practica</b>, ya que se pierde la <b>seguridad del tipo de dato</b>. Por lo tanto, se debe evitar usar variables de tipo `any` siempre que sea posible.',
+                'Usar variables de tipo `any` es una <b>MALA PRACTICA</b>, ya que se pierde la <b>seguridad del tipo de dato</b>. Por lo tanto, se debe evitar usar variables de tipo `any` siempre que sea posible.',
               ],
             },
           ],
@@ -534,24 +560,32 @@ export const typescript = {
           content: [
             {
               type: 'p',
-              text: 'Para declarar un <b>array</b>, se debe usar el símbolo `[]` seguido del <b>tipo de dato</b> de los elementos del array.'
+              text: 'Para declarar un <b>array</b> (arreglo) con tipado, se debe usar el símbolo `[]` seguido del <b>tipo de dato</b> de los elementos del array.'
             },
             {
               type: 'code',
               ...code('ts', [
-                `// Declaracion de un array de strings
-                let animales: string[] = ["Perro", "Gato", "Pajaro"];
-                // Declaracion de un array de numeros
-                let numeros: number[] = [1, 2, 3, 4, 5];
-                // Declaracion de un array de booleanos
-                let booleanos: boolean[] = [true, false, true];
-                // Declaracion de un array de objetos
-                let objetos: { nombre: string, edad: number }[] = [{ nombre: "Juan", edad: 20 }, { nombre: "Maria", edad: 25 }];
-                // Declaracion de un array de arrays
-                let arrays: string[][] = [["Perro", "Gato"], ["Pajaro", "Pez"]];
-                
-                // Si inicializamos un arreglo vacío sin especificar el tipo de dato, el compilador inferira el tipo de dato como "any"
-                let miArreglo = []; // Tipo: any`
+                `let arrayStrings: string[] = ["Perro", "Gato", "Pajaro"]; // Array de strings
+                let arrayNumeros: number[] = [1, 2, 3, 4, 5]; // Array de numeros
+                let arrayBooleanos: boolean[] = [true, false, true]; // Array de booleanos
+                let arrayObjetos: { nombre: string, edad: number }[] = [{ nombre: "Juan", edad: 20 }, { nombre: "Maria", edad: 25 }];
+                let arrayArrays: string[][] = [["Perro", "Gato"], ["Pajaro", "Pez"]];
+
+                // Si declaro un arreglo vacio, sin especificar el tipo de dato, entonces el tipo de dato sera "any[]"
+                const miArreglo = []; // tipo de dato: any[]
+                const miArreglo2: string[] = []; // tipo de dato: string[]
+
+                // Si no declaro el tipo de dato, pero tiene todos sus elementos de un solo tipo, entonces el tipo de dato sera "tipo[]"
+                // En este caso, Typescript esta "infiriendo" el tipo de dato del arreglo
+                const arregloNumeros = [1, 2, 3]; // tipo de dato: number[]
+
+                // Si el arreglo tiene elementos de diferentes tipos, entonces el tipo de dato sera "(tipo | tipo | tipo)[]"
+                const miArreglo3 = [1, "Hola", true]; // tipo de dato: (number | string | boolean)[]
+
+                // Tambien se puede declarar el tipo de un arreglo con un type (explicado en la seccion de "Types")
+                type MiArreglo = (number | string | boolean)[];
+                const miArreglo4: MiArreglo = [1, "Hola", true]; // tipo de dato: (number | string | boolean)[]
+                `
               ])
             },
             {
@@ -561,26 +595,11 @@ export const typescript = {
             {
               type: 'code',
               ...code('ts', [
-                `// Declaracion de un array de strings
-                let animales: Array<string> = ["Perro", "Gato", "Pajaro"];
-                // Declaracion de un array de numeros
-                let numeros: Array<number> = [1, 2, 3, 4, 5];
-                // Declaracion de un array de booleanos
-                let booleanos: Array<boolean> = [true, false, true];
-                // Declaracion de un array de objetos
-                let objetos: Array<{ nombre: string, edad: number }> = [{ nombre: "Juan", edad: 20 }, { nombre: "Maria", edad: 25 }];
-                // Declaracion de un array de arrays
-                let arrays: Array<Array<string>> = [["Perro", "Gato"], ["Pajaro", "Pez"]];`
-              ])
-            },
-            {
-              type: 'p',
-              text: 'Si inicializamos un array vacío sin especificar el tipo de dato, el compilador <b>inferira el tipo de dato</b> como `any`.'
-            },
-            {
-              type: 'code',
-              ...code('ts', [
-                `let miArreglo = []; // Tipo: any`
+                `let arrayStrings: Array<string> = ["Perro", "Gato", "Pajaro"];
+                let arrayNumeros: Array<number> = [1, 2, 3, 4, 5];
+                let arrayBooleanos: Array<boolean> = [true, false, true];
+                let arrayObjetos: Array<{ nombre: string, edad: number }> = [{ nombre: "Juan", edad: 20 }, { nombre: "Maria", edad: 25 }];
+                let arrayArrays: Array<Array<string>> = [["Perro", "Gato"], ["Pajaro", "Pez"]];`
               ])
             },
           ],
@@ -608,6 +627,10 @@ export const typescript = {
 
                 // Si dentro de la tupla se desea agregar mas elementos, se debe agregar un "..." seguido del tipo de dato de los elementos de la tupla.
                 let ejemploTupla3: [string, number, ...string] = ["Hola", 123, "Mundo", "Hola", "Mundo"];
+
+                // Tambien se pueden crear tuplas con un type (explicado en la seccion de "Types")
+                type RGB = [number, number, number];
+                let ejemploTupla4: RGB = [255, 255, 0]; // tipo de dato: [number, number, number]
                 `
               ])
             },
@@ -639,8 +662,7 @@ export const typescript = {
             {
               type: 'code',
               ...code('ts', [
-                `// Declaracion de un enum de tallas de ropa
-                // Por defecto, cada posicion del enum tiene un valor numerico que se incrementa de 1 en 1
+                `// Por defecto, cada posicion del enum tiene un valor numerico que se incrementa de 1 en 1
                 const enum Talla {
                   CHICA, // 0
                   MEDIANA, // 1
@@ -671,6 +693,14 @@ export const typescript = {
                 let miTalla4 = Talla.EXTRA_GRANDE; // miTalla4 sera 3
                 `
               ])
+            },
+            {
+              type: 'alert',
+              variant: 'info',
+              paragraphs: [
+                'Al declarar un <b>enum</b> puedes hacerlo con "<b>const</b>" para que el enum sea <b>inmutable</b> y no se pueda modificar (esto tambien generará menos código Javascript compilado).',
+                'Pero tambien puedes hacerlo sin "<b>const</b>" para que el enum sea <b>mutable</b>. Esto se recomienda cuando necesites consumir el enum en otro archivo o modulo.',
+              ],
             },
           ],
         },
@@ -751,116 +781,798 @@ export const typescript = {
             },
           ],
         },
-      ],
-    },
-    {
-      slug: 'interfaces',
-      title: 'Interfaces y types',
-      keywords: ['interface', 'type', 'alias', 'opcional', 'readonly', 'objeto'],
-      summary:
-        '`interface` y `type` describen formas de datos. Para un objeto, cualquiera de los dos sirve. La diferencia aparece en uniones, extensiones y fusión de declaraciones.',
-      sections: [
+        // :::::::::::::::: ASERCION DE TIPO ::::::::::::::::
         {
-          title: 'La forma de un apunte',
-          paragraphs: [
-            '`publicado?` significa que la propiedad puede faltar. `readonly` impide reasignar esa propiedad a través del tipo. No congela el objeto en runtime: solo avisa en compilación si intentas reasignarla.',
-          ],
-          code: code('typescript', [
-            'interface Apunte {',
-            '  id: string;',
-            '  titulo: string;',
-            '  etiquetas: readonly string[];',
-            '  publicado?: boolean;',
-            '}',
-            '',
-            "type Estado = 'borrador' | 'publicado';",
-            '',
-            'function abrir(apunte: Apunte, estado: Estado): string {',
-            "  if (estado === 'borrador' || !apunte.publicado) {",
-            '    return `${apunte.titulo} (borrador)`;',
-            '  }',
-            '',
-            '  return apunte.titulo;',
-            '}',
-          ]),
-        },
-        {
-          title: 'Cuándo usar cada uno',
-          paragraphs: [
-            'Usa `interface` para un objeto que otras interfaces van a extender con `extends`. Usa `type` para uniones, intersecciones, tuplas y alias de primitivos. En un mismo proyecto, elige una convención y no mezcles las dos para la misma clase de problema.',
-            'Una `interface` con el mismo nombre se fusiona con otra del mismo nombre. Un `type` no: volver a declararlo es un error. Esa fusión es útil en tipos de librerías y sorprendente en el código de la app.',
+          title: 'Asercion de tipo',
+          content: [
+            {
+              type: 'p',
+              text: 'La <b>asercion de tipo</b> es una manera de <b>indicarle a Typescript</b> que un valor es de un tipo de dato específico, aunque Typescript no lo pueda inferir automáticamente.'
+            },
+            {
+              type: 'p',
+              text: 'Para hacer una asercion de tipo, se debe usar el símbolo "<b>as</b>" seguido del tipo de dato deseado.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Digamos que quiero obtener un elemento de tipo HTMLCanvasElement
+                const canvas = document.getElementById("canvas");
+                // "canvas" sera de tipo null si no lo encuentra
+                // "canvas" sera de tipo HTMLElement si lo encuentra (un tipo de elemento generico de HTML)
+
+                // Lo que necesitamos es que este dato sea de tipo HTMLCanvasElement, para usar sus metodos y propiedades
+                // Entonces, para indicarle a Typescript que el valor es de un tipo de dato específico, hacemos una asercion de tipo:
+                const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+
+                // Ahora "canvas" sera de tipo HTMLCanvasElement y podemos usar sus metodos y propiedades
+                canvas.getContext("2d")?.fillStyle = "red";
+
+                // Tambien podemos hacer la asercion de tipo de la siguiente forma:
+                const canvas = document.getElementById("canvas");
+                if (canvas instanceof HTMLCanvasElement) {
+                  const ctx = canvas.getContext("2d");
+                  ctx?.fillStyle = "red";
+                }
+                `
+              ])
+            },
           ],
         },
       ],
     },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: FUNCIONES ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     {
-      slug: 'genericos',
-      title: 'Genéricos',
-      keywords: ['generics', 'genericos', 'T', 'reusable', 'parametro de tipo'],
-      summary:
-        'Un genérico es un parámetro de tipo. La función o el tipo no decide qué dato maneja: lo decide quien lo llama, y esa decisión se conserva en el resultado.',
+      slug: 'typescript-funciones',
+      title: 'Funciones',
+      keywords: ['typescript', 'javascript', 'funciones', 'parametros', 'retorno', 'tipado', 'tipado estatico'],
+      summary: '',
       sections: [
+        // :::::::::::::::: CONFIGURACION ::::::::::::::::
         {
-          title: 'Conservar el tipo de entrada',
-          paragraphs: [
-            'Sin genérico, `primero` tendría que devolver `unknown` o `any`, y el que llama perdería el tipo. Con `<T>`, si pasas `string[]` el resultado es `string | undefined`.',
-          ],
-          code: code('typescript', [
-            'function primero<T>(items: readonly T[]): T | undefined {',
-            '  return items[0];',
-            '}',
-            '',
-            "const titulo = primero(['Hooks', 'JSX']);",
-            'const cantidad = primero([3, 1, 4]);',
-            '',
-            'interface Respuesta<T> {',
-            '  datos: T;',
-            '  ok: boolean;',
-            '}',
-          ]),
-        },
-        {
-          title: 'No lo uses de más',
-          paragraphs: [
-            'Si una función solo trabaja con `string`, no la hagas genérica. El genérico se justifica cuando el tipo de salida depende del tipo de entrada, o cuando una estructura (`Respuesta`, una lista, una caja) debe servir para más de un tipo sin perderlo.',
+          title: 'Funciones en Typescript',
+          content: [
+            {
+              type: 'p',
+              text: 'Para usar <b>funciones con tipado</b> en Typescript, se debe definir el tipo de dato de los <b>parametros</b> de la funcion.'
+            },
+            {
+              type: 'p',
+              text: 'Esto se puede hacer de varias formas:'
+            },
+            {
+              type: 'p',
+              text: 'Una forma es con tipado explicito dentro de la declaracion de la funcion.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                '// Se puede definir el tipo dentro de los argumentos de la funcion (forma mas sencilla)',
+                'function saludar(nombre: string, edad: number) {',
+                ' console.log(`Hola ${nombre}, tienes ${edad} años.`);',
+                '}',
+                'saludar("Juan", 20);',
+                '',
+                '// Tambien se puede definir el tipo de dato con un objeto (forma mas explicita)',
+                'function saludar({ nombre, edad }: { nombre: string, edad: number }) {',
+                ' console.log(`Hola ${nombre}, tienes ${edad} años.`);',
+                '}',
+                'saludar({ nombre: "Juan", edad: 20 });',
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien se puede hacer con un <b>type</b>.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                '// Se puede definir el tipo de los argumentos de la siguiente forma',
+                'function saludar(persona: { nombre: string, edad: number }) {',
+                ' const { nombre, edad } = persona;',
+                ' console.log(`Hola ${nombre}, tienes ${edad} años.`);',
+                '}',
+                'saludar({ nombre: "Juan", edad: 20 });',
+                '',
+                '// Tambien se puede definir el tipo de los argumentos de la siguiente forma',
+                'type Persona = {',
+                ' nombre: string,',
+                ' edad: number',
+                '};',
+                'function saludar(persona: Persona) {',
+                ' console.log(`Hola ${persona.nombre}, tienes ${persona.edad} años.`);',
+                '}',
+                'saludar({ nombre: "Juan", edad: 20 });',
+              ])
+            },
           ],
         },
       ],
     },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: TYPES ::::::::::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     {
-      slug: 'uniones',
-      title: 'Uniones y narrowing',
-      keywords: ['union', 'narrowing', 'discriminada', 'switch', 'typeof', 'in'],
-      summary:
-        'Una unión dice que el valor es uno de varios tipos. Narrowing es el momento en que TypeScript descarta opciones porque ya comprobaste cuál es.',
+      slug: 'typescript-type',
+      title: 'Types',
+      keywords: ['typescript', 'javascript', 'types', 'alias', 'opcional', 'readonly', 'objeto'],
+      summary: '',
       sections: [
+        // :::::::::::::::: Types Alias ::::::::::::::::
         {
-          title: 'Unión discriminada',
-          paragraphs: [
-            'Un campo compartido, aquí `estado`, parte la unión. Dentro de `case \'listo\'` el tipo ya tiene `apuntes`. Dentro de `case \'error\'` tiene `mensaje`. Pedir `apuntes` en el caso de error no compila.',
+          title: 'Types Alias',
+          content: [
+            {
+              type: 'p',
+              text: 'Un <b>Type Alias</b> (tipo) es un <b>nombre alternativo</b> que se le da a una estructura de <b>datos personalizada</b>.'
+            },
+            {
+              type: 'p',
+              text: 'Esto no crea un objeto nuevo en la ejecución del programa; solo le dice a TypeScript qué forma deben tener los datos para revisar que no cometas errores antes de compilar'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Se puede definir un type alias de la siguiente forma (siempre en PascalCase)
+                type UserId = string;
+                const id: UserId = "abc-123";
+
+                // Si queremos que una variable acepte tipos especificos, se debe usar el símbolo "|" (union de tipos)
+                type Estado = "activo" | "inactivo" | "pendiente";
+                const miEstado: Estado = "activo"; // valido
+                const miEstado2: Estado = "durmiendo"; // invalido, dara un error de tipo
+                
+                // Tambien podemos crear un type alias de un objeto (siempre en PascalCase)
+                type Persona = { 
+                  nombre: string, 
+                  edad: number,
+                  isActive?: boolean, // El signo "?" indica que la propiedad es opcional
+                };
+                const persona: Persona = {
+                  nombre: "Juan",
+                  edad: 20
+                };
+                
+                // Y tambien podemos usar tipos en funciones
+                // En este ejemplo recibimos un objeto de tipo "Persona" y retornamos un objeto de tipo "Persona"
+                function crearPersona(persona: Persona): Persona {
+                  const { nombre, edad } = persona; // Destructuracion de objeto
+                  return { nombre, edad, isActive: true }; // Retorno de objeto de tipo "Persona"
+                }
+                const felipe = crearPersona({ nombre: "Felipe", edad: 35 }); // la variable felipe sera de tipo "Persona"
+
+                // Si quisieramos obtener una propiedad opcional de un objeto y no sabemos si esta existe, podemos usar el símbolo "?"
+                // Esto se llama "optional chaining"
+                felipe.isActive?.toString(); // Esto no dara un error de tipo si la propiedad isActive no existe
+                `
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien podemos usar <b>Types</b> con <b>Props de React</b>.'
+            },
+            {
+              type: 'code',
+              ...code('tsx', [
+                `// Primero defino el type
+                type ButtonProps = {
+                  text: string,
+                  color?: string, // El signo "?" indica que la propiedad es opcional
+                  onClick: () => void
+                };
+
+                // Luego defino el componente (hijo) que recibe las props como tipo "ButtonProps"
+                function Button({ text, onClick }: ButtonProps) {
+                  return <button onClick={onClick}>{text}</button>;
+                }
+
+                // Otra forma de hacer el boton es la siguiente:
+                const Button = (props: ButtonProps) => {
+                  return <button></button>;
+                }
+
+                // Luego puedo usar el componente (hijo) en el componente padre
+                function Page() {
+                  return (
+                    <div>
+                      <Button text="Click me" color="red" onClick={() => console.log("Click")} />
+                    </div>
+                  );
+                }
+                `
+              ])
+            },
           ],
-          code: code('typescript', [
-            'type Carga =',
-            "  | { estado: 'cargando' }",
-            "  | { estado: 'listo'; apuntes: string[] }",
-            "  | { estado: 'error'; mensaje: string };",
-            '',
-            'function texto(carga: Carga): string {',
-            '  switch (carga.estado) {',
-            "    case 'cargando':",
-            "      return 'Buscando apuntes…';",
-            "    case 'listo':",
-            '      return `${carga.apuntes.length} apuntes`;',
-            "    case 'error':",
-            '      return carga.mensaje;',
-            '  }',
-            '}',
-          ]),
         },
+        // :::::::::::::::: Mutabilidad ::::::::::::::::
         {
-          title: 'Otras guardas',
-          paragraphs: [
-            '`typeof valor === "string"` estrecha primitivos. `"titulo" in apunte` comprueba una propiedad. `Array.isArray` separa un array de un valor suelto. Después de la guarda, el editor ofrece los campos que de verdad existen.',
+          title: 'Mutabilidad',
+          content: [
+            {
+              type: 'p',
+              text: 'La <b>mutabilidad</b> es la capacidad de un objeto para ser modificado.'
+            },
+            {
+              type: 'p',
+              text: 'En Typescript, se puede definir si una propiedad de un objeto es modificable (<b>mutable</b>) o solo de lectura (<b>readonly</b>).'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `type Persona = { 
+                  readonly id: number, // La propiedad id es readonly y no se puede modificar
+                  nombre: string, 
+                  edad: number,
+                  isActive?: boolean, // El signo "?" indica que la propiedad es opcional
+                };
+                const persona: Persona = {
+                  id: 1,
+                  nombre: "Juan",
+                  edad: 20,
+                  isActive: true,
+                };
+                persona.id = 5; // Cannot assign to 'id' because it is a read-only property.
+                persona.nombre = "Pedro"; // Esto no dara un error de tipo porque la propiedad nombre es mutable`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Al usar <b>readonly</b> esto nos marcará un error de tipo si intentamos modificar la propiedad, pero no hace que el objeto sea inmutable en runtime.'
+            },
+            {
+              type: 'p',
+              text: 'Para lograr que el objeto sea <b>realmente inmutable</b>, se puede usar el metodo <b>Object.freeze</b>, el cual nos marcara un error de tipo si intentamos modificar la propiedad.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `const persona: Persona = Object.freeze({
+                  id: 1,
+                  nombre: "Juan",
+                  edad: 20,
+                  isActive: true,
+                });
+                persona.id = 5; // Cannot assign to 'id' because it is a read-only property.
+                persona.nombre = "Pedro"; // Cannot assign to 'nombre' because it is a read-only property.
+                `
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: Union Types ::::::::::::::::
+        {
+          title: 'Union Types',
+          content: [
+            {
+              type: 'p',
+              text: 'Los <b>Union Types</b> son tipos que se pueden definir usando el símbolo "|" (union de tipos).'
+            },
+            {
+              type: 'p',
+              text: 'Esto es util cuando se quiere definir un tipo que puede ser uno de varios tipos, como por ejemplo un tipo que puede ser un string o un number.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `type Estado = "activo" | "inactivo" | "pendiente";
+                const miEstado: Estado = "activo"; // valido
+                const miEstado2: Estado = "durmiendo"; // invalido, dara un error de tipo
+
+                // Tambien podemos usar Union Types para decidir entre 2 o mas tipos de datos
+                // Por ejemplo, si queremos definir un tipo que puede ser un string o un number, podemos usar el siguiente type:
+                type MiTipo = string | number;
+                const miTipo: MiTipo = "Hola"; // valido
+                const miTipo2: MiTipo = 123; // valido
+                const miTipo3: MiTipo = true; // invalido, dara un error de tipo
+
+                // O derechamente un tipo de dato y un valor concreto
+                type MiTipo = string | 56;
+                const miTipo: MiTipo = "Hola"; // valido
+                const miTipo2: MiTipo = 56; // valido
+                const miTipo3: MiTipo = 123; // invalido, dara un error de tipo
+                `
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien podemos usar <b>Template Union Types</b> para validar el formato de un string.'
+            },
+            {
+              type: 'p',
+              text: 'Por ejemplo, si queremos validar que un string es un email, podemos usar el siguiente type:'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                'type Email = \`${string}@${string}.${string}\`;',
+                'const miEmail: Email = "juan@gmail.com"; // valido',
+                'const miEmail2: Email = "juan@gmail.com.ar"; // invalido, dara un error de tipo',
+                '',
+                '// Otro ejemplo, para validar que un string lleve un simbolo de dolar al inicio',
+                'type SimboloDolar = `$${string}`;',
+                'const miSimboloDolar: SimboloDolar = "$100"; // valido',
+                'const miSimboloDolar2: SimboloDolar = "100"; // invalido, dara un error de tipo',
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien podemos usar <b>Union Types</b> para validar <b>Props de React</b>.'
+            },
+            {
+              type: 'code',
+              ...code('tsx', [
+                `// Primero defino el type
+                type ButtonProps = {
+                  text: string,
+                  backgroundColor?: 'red' | 'blue' | 'green'; // Defino los colores posibles del prop
+                };
+
+                // Luego defino el componente (hijo) que recibe las props como tipo "ButtonProps"
+                function Button({ text, onClick }: ButtonProps) {
+                `
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: Intersection Types ::::::::::::::::
+        {
+          title: 'Intersection Types',
+          content: [
+            {
+              type: 'p',
+              text: 'Los <b>Intersection Types</b> (interseccion de tipos) son tipos que se pueden definir usando el símbolo <b>"&"</b>.'
+            },
+            {
+              type: 'p',
+              text: 'Esto es util cuando quiere tener tipos que se <b>combinen de diferentes tipos</b>, o se quiera <b>extender un tipo de dato</b> con otro tipo de dato.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Defino los tipos de datos
+                type Persona = {
+                  nombre: string,
+                  edad: number
+                };
+                type Usuario = {
+                  email: string,
+                  password: string
+                };
+                // Defino el tipo de dato que se combinara con los tipos de datos anteriores
+                type UsuarioPersona = Persona & Usuario; // Interseccion de tipos
+                const usuarioPersona: UsuarioPersona = {
+                  nombre: "Juan"
+                  edad: 20,
+                  email: "juan@gmail.com",
+                  password: "123456"
+                };
+                `
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: Type Indexing ::::::::::::::::
+        {
+          title: 'Type Indexing',
+          content: [
+            {
+              type: 'p',
+              text: 'El <b>Type Indexing</b> (o Indexed Access Types / tipos de acceso indexados) es una característica que permite consultar el tipo de una propiedad específica de otro tipo, interfaz o objeto, utilizando una sintaxis similar a la de acceder a una propiedad en JavaScript (`Objeto["propiedad"]`)'
+            },
+            {
+              type: 'p',
+              text: 'Si tienes un tipo o interfaz con varias propiedades, puedes <b>extraer el tipo de una de ellas</b> para reutilizarlo en otra parte de tu código:'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `type Usuario = {
+                  id: number,
+                  nombre: string,
+                  activo: boolean
+                };
+
+                // Obtenemos el tipo de la propiedad 'nombre' (que es string)
+                type NombreUsuario = Usuario['nombre']; // Equivale a: type NombreUsuario = string;
+
+                const miNombre: NombreUsuario = "Ana"; // Correcto`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien se puede <b>reutilizar tipos de datos</b> para crear nuevos tipos de datos, o para <b>validar el tipo de una propiedad de un objeto</b>.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `type Usuario = {
+                  nombre: string,
+                  direccion: {
+                    calle: string,
+                    numero: number,
+                    ciudad: string
+                  };
+                };
+
+                // Obtenemos el tipo de la propiedad 'direccion' (que es un objeto)
+                const direccionUsuario: Usuario['direccion'] = { 
+                  calle: "Calle 123",
+                  numero: 123,
+                  ciudad: "Santiago"
+                };`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien podemos usar el utility <b>ReturnType</b> para obtener el <b>tipo de retorno</b> de una funcion.'
+            },  
+            {
+              type: 'code',
+              ...code('ts', [
+                `function createAdress() {
+                  return {
+                    calle: "Calle 123",
+                    numero: 123,
+                  };
+                };
+
+                type CreateAdressReturnType = ReturnType<typeof createAdress>;
+                const direccionUsuario: CreateAdressReturnType = createAdress();`
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: Type vs Interface ::::::::::::::::
+        {
+          title: 'Type vs Interface',
+          content: [
+            {
+              type: 'p',
+              text: 'Las <b>interfaces</b> y los <b>types</b> son muy similares, pero hay algunas diferencias entre ellos.'
+            },
+            {
+              type: 'p',
+              text: 'Las interfaces se usan para definir el <b>esquema</b> de un objeto, y luego se puede usar para crear objetos que cumplan con ese esquema. Los types se usan para definir un <b>tipo de dato</b>.'
+            },
+            {
+              type: 'p',
+              text: '<b>Diferencias entre interfaces y types:</b>'
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              title: 'Fusión de declaraciones (Declaration Merging)',
+              paragraphs: [
+                '<b>interface:</b> Si declaras dos interfaces con el mismo nombre en el mismo ámbito, TypeScript las fusiona automáticamente en una sola agregando sus propiedades.',
+                '<b>type:</b> Si intentas declarar un alias de tipo con el mismo nombre dos veces, obtendrás un error de identificador duplicado.'
+              ] 
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              title: 'Extensibilidad y herencia',
+              paragraphs: [
+                '<b>interface:</b> Se extienden usando la palabra clave "<b>extends</b>" (ej. `interface Admin extends User`).',
+                '<b>type:</b>  Se extienden simulando herencia mediante intersecciones con el <b>&</b> (ej. `type Admin = User & { role: string }`).'
+              ] 
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              title: 'Capacidades únicas de type',
+              paragraphs: [
+                'Pueden definir tipos primitivos (string, number, etc.). (ej. `type MiString = string`).',
+                'Permiten crear <b>tipos de unión</b> (string | number) e <b>intersecciones complejos</b>. (ej. `type Admin = User & { role: string }`).',
+                'Pueden definir <b>tuplas</b> y <b>tipos mapeados (mapped types)</b>. (ej. `type MiMap = { [key: string]: number }`).',
+              ] 
+            },
+            {
+              type: 'alert',
+              variant: 'info',
+              title: 'Cual usar?',
+              paragraphs: [
+                'Usa <b>interface</b> por defecto cuando estés modelando <b>objetos o clases</b>, especialmente si estás construyendo <b>librerías</b> donde otros usuarios necesiten extender las definiciones.',
+                'Usa <b>type</b> cuando necesites trabajar con <b>tipos primitivos, uniones, tuplas o funciones complejas</b> que una interfaz no puede expresar.'
+              ] 
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: INTERFACES ::::::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'typescript-interface',
+      title: 'Interfaces',
+      keywords: ['typescript', 'javascript', 'interfaces', 'opcional', 'readonly', 'objeto'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: Interfaces ::::::::::::::::
+        {
+          title: 'Interfaces',
+          content: [
+            {
+              type: 'p',
+              text: 'Una <b>Interface</b> es un <b>tipo de dato</b> que se define como una estructura de <b>datos personalizada</b> (parecido a un <b>type</b>).'
+            },
+            {
+              type: 'p',
+              text: 'Las interfaces se usan para definir el <b>esquema</b> de un objeto, y luego se puede usar para crear objetos que cumplan con ese esquema.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Se puede definir una interface de la siguiente forma (siempre en PascalCase)
+                interface Producto { 
+                  id: number, 
+                  nombre: string,
+                  precio: number
+                }
+                const producto: Producto = {
+                  id: 1,
+                  nombre: "Producto 1",
+                  precio: 100
+                };
+
+                // Tambien podemos tener interfaces dentro de interfaces
+                interface CarritoDeCompras {
+                  productos: Producto[],
+                  total: number,
+                  fecha: Date
+                }
+                const carrito: CarritoDeCompras = {
+                  productos: [{
+                    id: 1,
+                    nombre: "Producto 1",
+                    precio: 100
+                  }, {
+                    id: 2,
+                    nombre: "Producto 2",
+                    precio: 200
+                  }],
+                  total: 300,
+                  fecha: new Date()
+                };
+                `
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien podemos <b>extender</b> las interfaces para crear nuevas interfaces. Para esto usamos el símbolo "<b>extends</b>".'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Se puede definir una interface de la siguiente forma (siempre en PascalCase)
+                interface Producto { 
+                  id: number, 
+                  nombre: string,
+                  precio: number
+                }
+                // Luego definimos la interface que extiende de la interface Producto
+                interface ProductoConDescuento extends Producto {
+                  descuento: number
+                }
+                const productoConDescuento: ProductoConDescuento = {
+                  id: 1,
+                  nombre: "Producto 1",
+                  precio: 100,
+                  descuento: 10
+                };`
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Tambien podemos definir <b>metodos</b> en las interfaces.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Se puede definir una interface de la siguiente forma (siempre en PascalCase)
+                interface CarritoDeCompras { 
+                  agregarProducto(producto: Producto): void
+                  eliminarProducto(producto: Producto): void
+                  calcularTotal(): number
+                }
+                `
+              ])
+            },
+          ],
+        },
+        // :::::::::::::::: Type vs Interface ::::::::::::::::
+        {
+          title: 'Type vs Interface',
+          content: [
+            {
+              type: 'p',
+              text: 'Las <b>interfaces</b> y los <b>types</b> son muy similares, pero hay algunas diferencias entre ellos.'
+            },
+            {
+              type: 'p',
+              text: 'Las interfaces se usan para definir el <b>esquema</b> de un objeto, y luego se puede usar para crear objetos que cumplan con ese esquema. Los types se usan para definir un <b>tipo de dato</b>.'
+            },
+            {
+              type: 'p',
+              text: '<b>Diferencias entre interfaces y types:</b>'
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              title: 'Fusión de declaraciones (Declaration Merging)',
+              paragraphs: [
+                '<b>interface:</b> Si declaras dos interfaces con el mismo nombre en el mismo ámbito, TypeScript las fusiona automáticamente en una sola agregando sus propiedades.',
+                '<b>type:</b> Si intentas declarar un alias de tipo con el mismo nombre dos veces, obtendrás un error de identificador duplicado.'
+              ] 
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              title: 'Extensibilidad y herencia',
+              paragraphs: [
+                '<b>interface:</b> Se extienden usando la palabra clave "<b>extends</b>" (ej. `interface Admin extends User`).',
+                '<b>type:</b>  Se extienden simulando herencia mediante intersecciones con el <b>&</b> (ej. `type Admin = User & { role: string }`).'
+              ] 
+            },
+            {
+              type: 'alert',
+              variant: 'warning',
+              title: 'Capacidades únicas de type',
+              paragraphs: [
+                'Pueden definir tipos primitivos (string, number, etc.). (ej. `type MiString = string`).',
+                'Permiten crear <b>tipos de unión</b> (string | number) e <b>intersecciones complejos</b>. (ej. `type Admin = User & { role: string }`).',
+                'Pueden definir <b>tuplas</b> y <b>tipos mapeados (mapped types)</b>. (ej. `type MiMap = { [key: string]: number }`).',
+              ] 
+            },
+            {
+              type: 'alert',
+              variant: 'info',
+              title: 'Cual usar?',
+              paragraphs: [
+                'Usa <b>interface</b> por defecto cuando estés modelando <b>objetos o clases</b>, especialmente si estás construyendo <b>librerías</b> donde otros usuarios necesiten extender las definiciones.',
+                'Usa <b>type</b> cuando necesites trabajar con <b>tipos primitivos, uniones, tuplas o funciones complejas</b> que una interfaz no puede expresar.'
+              ] 
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: NARROWING ::::::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'typescript-narrowing',
+      title: 'Narrowing',
+      keywords: ['typescript', 'javascript', 'narrowing', 'discriminated', 'switch', 'typeof', 'in'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: Narrowing ::::::::::::::::
+        {
+          title: 'Narrowing',
+          content: [
+            {
+              type: 'p',
+              text: 'El <b>narrowing</b> es el proceso de <b>reducir</b> el <b>tipo de una variable</b> a un <b>tipo mas específico</b>.'
+            },
+            {
+              type: 'p',
+              text: 'El narrowing se puede hacer de varias formas, una de ellas es usando el operador <b>typeof</b>, el cual se utiliza para comprobar el tipo de una variable.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `// Usando el operador typeof
+                function getTipo(valor: string | number) {
+                  // Al entrar a la funcion, el tipo de la variable puede ser string o number
+                  if (typeof valor === 'string') {
+                    // En este punto el tipo de la variable es string
+                    let upperVariable = valor.toUpperCase(); // Puedo acceder al metodo toUpperCase porque es string
+                    return 'El valor es un string';
+                  }
+                  // En este punto el tipo de la variable es number
+                  let fixedVariable = valor.toFixed(2); // Puedo acceder al metodo toFixed porque es number
+                  return 'El valor es un number';
+                }
+                `
+              ])
+            },
+            {
+              type: 'p',
+              text: 'Otra forma, si se usan tipos o interfaces, es usando alguna <b>propiedad</b> del objeto o interface.'
+            },
+            {
+              type: 'code',
+              ...code('ts', [
+                `type Sonic = {
+                  company: 'Sega', // Propiedad que identifica al personaje
+                  name: string,
+                  correr: () => void,
+                }
+                type Mario {
+                  company: 'Nintendo', // Propiedad que identifica al personaje
+                  name: string,
+                  saltar: () => void,
+                }
+                // Creamos una union de los dos tipos
+                const Personaje = Mario | Sonic;
+                function jugar(personaje: Personaje) {
+                  if (personaje.company === 'Sega') {
+                    // En este punto el tipo de la variable es Sonic
+                    return personaje.correr();
+                  }
+                  // En este punto el tipo de la variable es Mario
+                  return personaje.saltar();
+                }
+
+                // Otra forma de hacerlo es haciendo "Type Guard"
+                // Las siguientes funciones comprueban si el personaje es Sonic
+                function isSonic(personaje: Personaje): personaje is Sonic {
+                  return (personaje as Sonic).saltar === undefined;
+                }
+                function jugar(personaje: Personaje) {
+                  if (isSonic(personaje)) {
+                    // En este punto el tipo de la variable es Sonic
+                    return personaje.correr();
+                  }
+                  // En este punto el tipo de la variable es Mario
+                  return personaje.saltar();
+                }
+                `
+              ])
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: CSS PROPERTIES (REACT) ::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'typescript-css-properties-react',
+      title: 'CSS Properties (React)',
+      keywords: ['typescript', 'javascript', 'css', 'properties', 'react'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: CSS Properties (React) ::::::::::::::::
+        {
+          title: 'CSS Properties (React)',
+          content: [
+            {
+              type: 'p',
+              text: 'Si quisieramos pasar <b>Props</b> asociados a <b>estilos css (style)</b> a un Componente, una forma de hacerlo es usar un tipo especial de React llamado <b>React.CSSProperties</b>'
+            },
+            {
+              type: 'p',
+              text: 'Con esto ya no sera necesario definir todas las propiedades dentro de un type para asignar css a un componente'
+            },
+            {
+              type: 'code',
+              ...code('tsx', [
+                `// Creo un type que incluye todas las propiedades css desde React.CSSProperties
+                type ButtonProps = {
+                  style: React.CSSProperties;
+                }
+                // Creo un componente que recibe las propiedades css como props
+                function Button({style}: ButtonProps) {
+                  return (
+                    <button style={style}>
+                      Click me
+                    </button>
+                  )
+                }
+                // Luego simplemente le mando las propiedades css que quiera dentro de style a mi componente Button
+                function page(){
+                  return (
+                    <Button style={{ backgroundColor: 'red', color: 'white' }}>
+                      Click me
+                    </Button>
+                  )
+                }
+                `
+              ])
+            },
           ],
         },
       ],
