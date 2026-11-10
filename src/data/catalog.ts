@@ -64,6 +64,9 @@
 
 import { react } from './categories/react.ts';
 import { typescript } from './categories/typescript.ts';
+import { tailwind } from './categories/tailwind.ts';
+import { nextjs } from './categories/nextjs.ts';
+import { nodejs } from './categories/nodejs.ts';
 
 // Una sección puede traer `content` (orden libre) o los campos sueltos.
 // El tipo los deja todos opcionales para que cada apunte use solo los que necesita.
@@ -120,7 +123,7 @@ function asDocArticle<T extends DocArticle>(article: T): DocArticle {
 //import { javascript } from './categories/javascript.js';
 //import { ia } from './categories/ia.js';
 
-export const catalog = [react, typescript];
+export const catalog = [react, typescript, tailwind, nextjs, nodejs];
 
 // Quita tildes y pasa a minúsculas para que "módulo" coincida con "modulo".
 // NFD separa la letra del acento; el replace borra esas marcas.
