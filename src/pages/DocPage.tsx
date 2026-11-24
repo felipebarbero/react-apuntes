@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import CodeBlock from '../components/CodeBlock.tsx';
 import RichText from '../components/RichText.tsx';
 import ZoomImage from '../components/ZoomImage.tsx';
-import { getDoc, type FlowBlock } from '../data/catalog.ts';
+import { getDoc, type FlowBlock, type TableCell } from '../data/catalog.ts';
 import { usePageTitle } from '../hooks/usePageTitle.ts';
 
 // Solo estas variantes existen en Bootstrap. Cualquier otra cae en "info".
@@ -94,6 +94,7 @@ export default function DocPage() {
                   width={image.width}
                   height={image.height}
                   caption={image.caption ?? ''}
+                  compact={image.compact}
                 />
               ))}
               {section.note && (
@@ -142,6 +143,7 @@ function SectionBlock({ block }: { block: FlowBlock }) {
         width={block.width}
         height={block.height}
         caption={block.caption ?? ''}
+        compact={block.compact}
       />
     );
   }
@@ -153,6 +155,7 @@ function SectionBlock({ block }: { block: FlowBlock }) {
     );
   }
   if (block.type === 'code' && block.language && block.value) return <CodeBlock language={block.language} value={block.value} />;
+  if (block.type === 'table') return <DataTable headers={block.headers} rows={block.rows} caption={block.caption} />;
 
   return null;
 }
@@ -163,6 +166,86 @@ function alertTexts(source: { paragraphs?: readonly string[]; text?: string | re
   const paragraphs = Array.isArray(source.paragraphs) ? source.paragraphs : [];
   const text = Array.isArray(source.text) ? source.text : source.text ? [source.text] : [];
   return [...paragraphs, ...text].filter((paragraph) => paragraph);
+}
+
+function TableCellContent({ cell }: { cell: TableCell }) {
+  if (typeof cell === 'string') return <RichText text={cell} />;
+  if ('value' in cell && cell.value) return <CodeBlock language={cell.language || 'text'} value={cell.value} />;
+  if (!('src' in cell) || !cell.src) return null;
+
+  return (
+    <ZoomImage
+      src={cell.src}
+      alt={cell.alt ?? ''}
+      width={cell.width}
+      height={cell.height}
+      caption={cell.caption ?? ''}
+      compact={cell.compact}
+    />
+  );
+}
+
+function DataTable({
+  headers,
+  rows,
+  caption,
+}: {
+  headers?: readonly TableCell[];
+  rows?: readonly (readonly TableCell[])[];
+  caption?: string;
+}) {
+  const head = headers ?? [];
+  const body = rows ?? [];
+  if (head.length === 0 && body.length === 0) return null;
+
+  const columns = Math.max(head.length, ...body.map((row) => row.length));
+  const twoColumns = columns === 2;
+
+  return (
+    <div className="table-responsive my-3">
+      <table className={`table table-bordered align-middle mb-0${twoColumns ? ' table-cols-2' : ''}`}>
+        {caption && (
+          <caption className="caption-top text-secondary">
+            <RichText text={caption} />
+          </caption>
+        )}
+        {head.length > 0 && (
+          <thead>
+            <tr>
+              {head.map((header, index) => (
+                <th key={index} scope="col">
+                  {twoColumns ? (
+                    <div className="table-cell-scroll">
+                      <TableCellContent cell={header} />
+                    </div>
+                  ) : (
+                    <TableCellContent cell={header} />
+                  )}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody>
+          {body.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex}>
+                  {twoColumns ? (
+                    <div className="table-cell-scroll">
+                      <TableCellContent cell={cell} />
+                    </div>
+                  ) : (
+                    <TableCellContent cell={cell} />
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 function Alert({ variant, title, texts }: { variant?: string; title?: string; texts: readonly string[] }) {

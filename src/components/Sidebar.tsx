@@ -5,9 +5,10 @@ import { NavLink, useLocation, useMatch } from 'react-router-dom';
 import { articlePath, catalog, countArticles, filterCatalog } from '../data/catalog.ts';
 import CategoryIcon from './CategoryIcon.tsx';
 
-// Todas las categorías plegadas, salvo la del apunte que está abierto.
+// Todas las subcategorías plegadas, salvo la del apunte que está abierto.
+// La categoría que las agrupa no entra en este conjunto: siempre queda visible.
 function collapsedExcept(activeCategoryId: string) {
-  const next = new Set(catalog.map((category) => category.id));
+  const next = new Set(catalog.flatMap((group) => group.categories.map((category) => category.id)));
   if (activeCategoryId) next.delete(activeCategoryId);
   return next;
 }
@@ -28,8 +29,8 @@ export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavig
   }
 
   const searching = query.trim().length > 0;
-  const categories = filterCatalog(query);
-  const total = countArticles(categories);
+  const groups = filterCatalog(query);
+  const total = countArticles(groups);
 
   // Pliega o despliega una categoría. Durante una búsqueda no hace nada:
   // los resultados tienen que verse todos, aunque la categoría estuviera cerrada.
@@ -80,56 +81,61 @@ export default function Sidebar({ query, mobileOpen, hiddenFromKeyboard, onNavig
           </li>
         </ul>
 
-        {categories.length === 0 && (
+        {groups.length === 0 && (
           <p className="small text-secondary px-2">
             Ningún apunte coincide con <em className="fst-normal text-body">{query.trim()}</em>.
           </p>
         )}
 
-        {categories.map((category) => {
-          // En una búsqueda las categorías coincidentes se muestran abiertas sí o sí.
-          const open = searching || !collapsed.has(category.id);
+        {groups.map((group) => (
+          <section key={group.id} className="mb-3">
+            <h2 className="catalog-group text-muted">{(group.title).toUpperCase()}</h2>
+            {group.categories.map((category) => {
+              // En una búsqueda las subcategorías coincidentes se muestran abiertas sí o sí.
+              const open = searching || !collapsed.has(category.id);
 
-          return (
-            <section key={category.id}>
-              <button
-                type="button"
-                className="category-toggle"
-                aria-expanded={open}
-                onClick={() => toggleCategory(category.id)}
-              >
-                <span className="category-label">
-                  <CategoryIcon src={category.icon} />
-                  <span>{category.title}</span>
-                </span>
-                <span className="category-aside">
-                  {category.version && <span className="category-version">{category.version}</span>}
-                  <Chevron open={open} />
-                </span>
-              </button>
-              {open && (
-                <ul className="nav nav-pills flex-column gap-1 mb-2">
-                  {category.items.map((article) => (
-                    <li className="nav-item" key={article.slug}>
-                      <NavLink
-                        to={articlePath(category.id, article.slug)}
-                        className={({ isActive }) => `nav-link py-2${isActive ? ' active' : ''}`}
-                        onClick={onNavigate}
-                      >
-                        {() => (
-                          <>
-                            <HandCursor />
-                            {article.title}
-                          </>
-                        )}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          );
-        })}
+              return (
+                <div key={category.id}>
+                  <button
+                    type="button"
+                    className="category-toggle"
+                    aria-expanded={open}
+                    onClick={() => toggleCategory(category.id)}
+                  >
+                    <span className="category-label">
+                      <CategoryIcon src={category.icon} />
+                      <span>{category.title}</span>
+                    </span>
+                    <span className="category-aside">
+                      {category.version && <span className="category-version">{category.version}</span>}
+                      <Chevron open={open} />
+                    </span>
+                  </button>
+                  {open && (
+                    <ul className="nav nav-pills flex-column mb-2 subcategory-items">
+                      {category.items.map((article) => (
+                        <li className="nav-item" key={article.slug}>
+                          <NavLink
+                            to={articlePath(category.id, article.slug)}
+                            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+                            onClick={onNavigate}
+                          >
+                            {() => (
+                              <>
+                                <HandCursor />
+                                {article.title}
+                              </>
+                            )}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
+          </section>
+        ))}
       </nav>
     </aside>
   );

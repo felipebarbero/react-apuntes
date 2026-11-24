@@ -136,7 +136,7 @@ function BookIcon() {
   return (
     <img
       className="topbar-mark d-none d-lg-inline-block"
-      src="/imagenes/pila-de-libros.png"
+      src="/imagenes/libros_v2.png"
       alt=""
       width={30}
       height={30}

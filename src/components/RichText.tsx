@@ -10,6 +10,7 @@ import type { ReactNode } from 'react';
 //   ***ambas***     negrita y cursiva a la vez
 //   [texto](https://...)   o   <a href="https://...">texto</a>
 //   El enlace abre otra ventana. Entre ] y ( puede haber un espacio.
+//   <a> puede llevar otros atributos, como target. Solo se usa href.
 // Se pueden anidar: **negrita con *cursiva* dentro**.
 // Si falta el cierre, el marcador se muestra como texto.
 
@@ -91,15 +92,17 @@ function nextMarker(text: string, from: number): Marker | null {
       }
     }
 
-    const anchor = /^<a\s+href=(?:"([^"]+)"|'([^']+)')\s*>/i.exec(text.slice(index));
-    if (anchor) {
-      const href = safeHref(anchor[1] ?? anchor[2]);
-      const rest = text.slice(index + anchor[0].length);
-      const close = /<\/a>/i.exec(rest);
-      if (href && close) {
-        const innerStart = index + anchor[0].length;
-        const innerEnd = innerStart + close.index;
-        return { kind: 'link', start: index, href, innerStart, innerEnd, end: innerEnd + close[0].length };
+    if (text[index] === '<') {
+      const open = readOpeningTag(text, index);
+      if (open && /^<a\b/i.test(open.tag)) {
+        const href = hrefFromTag(open.tag);
+        const rest = text.slice(open.end);
+        const close = /<\/a>/i.exec(rest);
+        if (href && close) {
+          const innerStart = open.end;
+          const innerEnd = innerStart + close.index;
+          return { kind: 'link', start: index, href, innerStart, innerEnd, end: innerEnd + close[0].length };
+        }
       }
     }
 
@@ -119,6 +122,30 @@ function nextMarker(text: string, from: number): Marker | null {
   }
 
   return null;
+}
+
+// Lee <a ...> hasta el > de cierre, sin cortar si un atributo trae comillas.
+function readOpeningTag(text: string, index: number) {
+  let quote = '';
+  for (let cursor = index + 1; cursor < text.length; cursor += 1) {
+    const char = text[cursor];
+    if (quote) {
+      if (char === quote) quote = '';
+      continue;
+    }
+    if (char === '"' || char === "'") {
+      quote = char;
+      continue;
+    }
+    if (char === '>') return { tag: text.slice(index, cursor + 1), end: cursor + 1 };
+  }
+  return null;
+}
+
+// href puede ir antes o después de otros atributos, con comillas o sin ellas.
+function hrefFromTag(tag: string) {
+  const match = /\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i.exec(tag);
+  return safeHref(match?.[1] ?? match?.[2] ?? match?.[3]);
 }
 
 // Solo direcciones web, correo o una ruta de este sitio. El resto se deja como texto.
