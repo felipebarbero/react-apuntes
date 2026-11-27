@@ -943,5 +943,388 @@ export const godot = {
         },
       ],
     },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: GET_NODE ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-get_node',
+      title: 'get_node()',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot get_node', 'godot get_node conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE SIGNIFICA GET_NODE EN GODOT? ::::::::::::::::
+        {
+          title: 'Que es get_node() en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Imagina que tu escena de jugador se ve algo como esto: un nodo <b>"Player" (padre)</b> y un nodo <b>"Sprite2D" (hijo)</b>. Puedes ver claramente el nodo "Sprite2D" en el árbol de escenas, pero ahora el script de tu nodo "Player" quiere cambiar la imagen de su nodo "Sprite2D", o quizas ocultarlo.' 
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces tenemos un problema, como hacemos para que <b>el script apunte a ese nodo especifico?</b> Y eso es justamente lo que hace el metodo `get_node()`.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_14-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Podemos escribir `get_node("Sprite2D")` en nuestro script para obtener el nodo "Sprite2D". El nombre nos indica exactamente lo que hace, es decir, <b>"obtén el nodo llamado Sprite2D"</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_14-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Ahora, si nuestro nodo estuviera mas profundo en el arbol de escenas, por ejemplo, <b>"Player"/"Graphics"/"Sprite2D"</b>, podemos escribir `get_node("Graphics/Sprite2D")` para obtener el nodo "Sprite2D".',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_14-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Básicamente le estamos dando a Godot un <b>"camino" (path)</b> a traves del árbol de escenas <b>para llegar al nodo deseado</b>.',
+            },
+            { 
+              type: 'p', 
+              text: 'Tambien, como haremos esto todo el tiempo, Godot tambien nos entrega un <b>shortcut (atajo)</b> para hacer esto mas facil. Podemos escribir `$Sprite2D` para conseguir el mismo nodo, sin tener que escribir el camino completo.',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_14-4.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Ahora, que pasaría si quieres usar ese nodo Sprite2D muchas veces? podemos almacenar la <b>referencia a ese nodo</b> en una <b>variable</b>, y luego usar esa variable para acceder al nodo.',
+            },
+            { 
+              type: 'p', 
+              text: 'Podemos usar tambien el ampersand <b>"onready"</b> para declarar la variable fuera de la funcion y asignarle un valor cuando el nodo este listo. La referencia al nodo en una variable quedaria asi: `@onready var sprite = $Sprite2D`',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_14-5.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'get_node()',
+              paragraphs: [
+                '<b>encuentra el nodo por su path, $ es el shortcut y @onready espera a que el nodo este listo</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: LEER ERRORES ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-leer-errores',
+      title: 'Leer Errores',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot leer errores', 'godot leer errores conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: LEER ERRORES EN GODOT ::::::::::::::::
+        {
+          title: 'Leyendo Errores en Godot',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Cuando ejecutas tu juego y Godot de la nada muestra un <b>error en color rojo</b>, una reaccion comun sería empezar a cambiar cosas, pero primero, <b>mira lo que Godot esta realmente diciendo</b>. ' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_15-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Imagina que el error dice: <b>Node not found: "Player"</b>. Esto ya nos da nuestra primera pista, Godot intentó encontrar un nodo llamado "Player" pero fallo. Ahora mira el resto del error, Godot tambien nos dice que <b>script y que linea de codigo es el que causo el problema</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_15-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces, podemos ir directamente al script y quizas nuestro codigo dice `$Player`, es decir, <b>"encuentra este nodo directamente desde aqui"</b>' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_15-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Pero ahora mira el arbol de escenas, el nodo "Player" <b>no esta directamente ahi, sino que esta dentro del nodo "Actors"</b>, entonces el path real sería <b>"Actors/Player"</b>.',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_15-4.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Una vez que <b>corregimos el error</b> cambiando el path <b>"$Player"</b> a <b>"$Actors/Player"</b>, el error se <b>resuelve</b> y ahora Godot puede <b>encontrar el nodo</b>. ',
+            },
+            { 
+              type: 'p', 
+              text: 'Ahora, tambien hay veces en que un solo error puede causar varios otros errores, por lo que arreglando el primer error puede ayudar a resolver los otros.',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_15-5.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Es por esto que un mensaje de error es útil. Nos dice <b>"que falló"</b>, <b>"dónde fallo"</b> y a veces nos da una pista del <b>"porque fallo"</b>.',
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces, cuando veas un error rojo, <b>lee el mensaje</b>, <b>verifica el script y la linea del error</b>, <b>arregla el error</b>, y luego <b>vuelve a ejecutar el juego</b>.',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_15-6.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Un error no es solo un mensaje rojo, es Godot diciendote donde el juego dejo de hacer sentido.',
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'Lee el error',
+              paragraphs: [
+                '<b>qué, donde y porqué fallo</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: EXPORT ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-export',
+      title: '@export',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot export', 'godot export conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE ES @EXPORT EN GODOT? ::::::::::::::::
+        {
+          title: 'Que es @export en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Imagina que tu jugador tiene un valor de velocidad que es igual a 200, luego quieres hacer al jugador un poco mas rápido, por lo que abres el script, cambias el valor de 200 a 250, guardas los cambios y vuelves a ejecutar el juego. Sigues repitiendo este proceso hasta que te sientes agusto, pero hay una mejor forma de hacer esto.' 
+            },
+            { 
+              type: 'p', 
+              text: 'Puedes usar `@export var speed = 200` para declarar la variable <b>speed</b>, pero ahora <b>la variable aparecera en el inspector de Godot</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_16-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'El nombre <b>"Export"</b> nos indica que esta pasando, <b>"EXPORT" = "llevar afuera"</b>. ' 
+            },
+            { 
+              type: 'p', 
+              text: 'La variable estaba <b>dentro del script</b>, pero <b>export</b> la expone <b>fuera del script</b>, entonces la podemos editar directamente desde el inspector de Godot. Tambien podemos usar export con otras variables, como speed, damage, jump_force, etc. y editar sus valores directamente, sin necesidad de tocar el codigo cada vez.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_16-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: '<b>Diferentes instancias</b> de la misma escena pueden tener <b>diferentes valores exportados</b>, por ejemplo, un enemigo podría tener `speed = 100` y otro `speed = 200`, mientras ambos usan el mismo script',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_16-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Eso es para lo que sirve <b>"@export"</b>. Toma un valor desde dentro de un script, y lo expone dentro del inspector, para que pueda ser configurada desde afuera.',
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: '@export',
+              paragraphs: [
+                '<b>Pon una variable del script en el inspector. Cambiala desde fuera del código.</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: SEÑALES ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-senales',
+      title: 'Señales',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot senales', 'godot senales conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE ES SEÑALES EN GODOT? ::::::::::::::::
+        {
+          title: 'Que son las Señales en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Imagina un enemigo que muere. Ese unico <b>evento</b> deberia activar varios <b>eventos diferentes</b>, no? La puntuación deberia aumentar, suena un sonido, la UI se actualiza, quizas una puerta se abre, etc.' 
+            },
+            { 
+              type: 'p', 
+              text: 'El enemigo podría tratar de controlar todos estos sistemas directamente, pero entonces el enemigo tendría que saber sobre la puntuación, la UI, el sistema de sonidos, la puerta, etc.',
+            },
+            { 
+              type: 'p', 
+              text: 'En vez de tener que hacer todo eso, el enemigo podría simplemente <b>emitir una señal (signal)</b> cuando muere (como avisando "ya morí"). Luego, cualquier cosa interesada en ese evento puede <b>escuchar y reaccionar a esa señal</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_17-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'El sistema de puntuación añade puntos, la UI se actualiza, la puerta se abre, etc. El enemigo no necesita saber quien esta escuchando, simplemente <b>anuncia lo que pasa</b>, y es por eso que se llama una <b>"señal"</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_17-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Una parte de tu juego <b>envia información</b>, <b>anuncia que algo pasó</b>, y otras partes de tu juego pueden <b>reaccionar a eso</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_17-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'Las Señales anuncian',
+              paragraphs: [
+                '<b>No controlan.</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: BODY2D ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-body2d',
+      title: 'PhysicsBody2D',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot body2d', 'godot body2d conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: CUAL BODY2D USAR EN GODOT? ::::::::::::::::
+        {
+          title: 'Cuál Body2D usar en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Imagina que estamos construyendo un juego simple y tenemos tres cosas, un <b>jugador</b>, una <b>caja</b> y un <b>muro</b>. Los tres necesitan <b>colisiones</b>, pero deberian comportarse todos de la misma forma? <b>Definitivamente no</b>.' 
+            },
+            { 
+              type: 'p', 
+              text: 'El <b>jugador</b> debería moverse exactamente cuando le indiquemos que se mueva. Si presionas derecha, el jugador deberia moverse hacia la derecha. Si presionas el salto, el jugador deberia saltar, etc. Para este tipo de objetos Godot nos entrega el nodo <b>"CharacterBody2D"</b>. Este <b>nodo Body2D</b> esta diseñado para cosas cuyo <b>movimiento controlamos por código</b>.',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_18-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Ahora miremos la <b>caja</b>. Quizas querramos que "caiga" por la gravedad, que pueda ser "empujada", que "rebote", que reacciones a otros objetos con fisica, etc. aqui podemos usar el nodo <b>"RigidBody2D"</b>. Este <b>nodo Body2D</b> esta diseñado para cosas cuyo <b>movimiento es controlado por la simulación de fisica</b>.' 
+            },
+            { 
+              type: 'p', 
+              text: 'En vez de decirle exactamente donde moverse, dejamos que <b>fuerzas</b> y <b>colisiones</b> lo afecten.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_18-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Finalmente, miremos el <b>muro</b>. Este deberia colisionar con cosas, pero <b>la fisica no deberia moverlo ni afectarlo cuando algo colisiona con el</b>. Aqui podemos usar el nodo <b>"StaticBody2D"</b>. Este <b>nodo Body2D</b> esta diseñado para cosas que son <b>"estáticas"</b>, pero que necesitan colisionar con otros objetos.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_18-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Los tres son <b>"PhysicsBody2D"</b>, pero la diferencia importante es quien controla su movimiento. <b>CharacterBody2D</b> es controlado por código, <b>RigidBody2D</b> es controlado por fisica, y <b>StaticBody2D</b> es estático.' 
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: '3 Cuerpos Físicos',
+              paragraphs: [
+                '<b>CharacterBody2D</b> = tu codigo lo mueve',
+                '<b>RigidBody2D</b> = la fisica lo mueve',
+                '<b>StaticBody2D</b> = se mantiene fijo',
+              ]
+            },
+          ],
+        },
+      ],
+    },
   ],
 }
