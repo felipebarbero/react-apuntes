@@ -1317,9 +1317,341 @@ export const godot = {
               variant: 'primary',
               title: '3 Cuerpos Físicos',
               paragraphs: [
-                '<b>CharacterBody2D</b> = tu codigo lo mueve',
-                '<b>RigidBody2D</b> = la fisica lo mueve',
-                '<b>StaticBody2D</b> = se mantiene fijo',
+                '<b>CharacterBody2D</b> = <b>tu codigo lo mueve</b>',
+                '<b>RigidBody2D</b> = <b>la fisica lo mueve</b>',
+                '<b>StaticBody2D</b> = <b>se mantiene fijo</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: COLLISIONSHAPE2D ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-collision-shape2d',
+      title: 'CollisionShape2D',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot collisionshape2d', 'godot collisionshape2d conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE ES COLLISIONSHAPE2D EN GODOT? ::::::::::::::::
+        {
+          title: 'Que es CollisionShape2D en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Imagina que creamos un <b>jugador</b> usando un nodo <b>"CharacterBody2D"</b> y queremos que el jugador <b>colisione</b> con los muros. Por ahora tenemos un problema, exactamente <b>qué deberia colisionar con el muro?</b> ' 
+            },
+            { 
+              type: 'p', 
+              text: 'Es nuestro jugador un <b>circulo?</b> un <b>rectangulo?</b> una <b>capsula?</b> que tan grande es? El <b>"CharacterBody2D"</b> sólo le dice a Godot que esto es un <b>"PhysicsBody2D"</b>, pero no le dice que <b>forma física</b> tiene. Para esto es que debemos añadir un <b>"CollisionShape2D"</b>.',
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_19-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'El nombre nos dice exactamente que es lo que hace. <b>"CollisionShape2D"</b> = <b>"Collision"</b> (usado para colisiones) + <b>"Shape"</b> (la forma física del objeto) + <b>"2D"</b> (para escenarios 2D). ' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_19-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Por ejemplo, digamos que tenemos un jugador y le añadimos un <b>"CollisionShape2D"</b> con forma de <b>capsula</b>. Ahora cuando el jugador choque contra el muro, Godot <b>no verifica los pixeles del sprite</b>, sino que<b> verifica la forma física de colision</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_19-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Si hacemos la forma de colision mas ancha, el jugador colisionara con el muro antes. Si la hacemos mas estrecha, el jugador podrá llegar mas cerca del muro antes de colisionar con el.' 
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces, estos dos nodos tienen trabajos distintos. <b>"CharacterBody2D"</b> dice "soy un cuerpo físico para escenarios 2D (PhysicsBody2D)", mientras que <b>"CollisionShape2D"</b> dice "y esta es la forma que deberias verificar para las colisiones".' 
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'ColisionShape2D',
+              paragraphs: [
+                '<b>CharacterBody2D</b> = <b>el cuerpo físico</b>',
+                '<b>CollisionShape2D</b> = <b>la forma de colision</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: VECTOR2 ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-vector2',
+      title: 'Vector2',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot vector2', 'godot vector2 conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE ES UN VECTOR2 EN GODOT? ::::::::::::::::
+        {
+          title: 'Que es un Vector2 en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Empecemos por el nombre. Un <b>vector</b> es algo que tiene una <b>dirección y un largo</b>. La forma mas fácil de imaginarlo es como una <b>flecha</b>. ' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_20-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'La <b>dirección a la cual apunta la flecha</b> nos dice <b>hacia donde</b> debería ir algo, y el <b>largo de la flecha</b> nos dice que tanto debería moverse.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_20-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Ahora, el <b>"2"</b> en <b>"Vector2"</b> simplemente nos dice que hablamos en <b>2 dimensiones</b> (<b>x</b> e <b>y</b>).' 
+            },
+            { 
+              type: 'p', 
+              text: 'Por ejemplo, <b>Vector2(1, 0)</b> apunta hacia la <b>derecha</b>, <b>Vector2(-1, 0)</b> apunta hacia la <b>izquierda</b>, <b>Vector2(0, -1)</b> apunta hacia <b>arriba</b>, y <b>Vector2(0, 1)</b> apunta hacia <b>abajo</b>. Luego, si ambos ejes <b>x</b> e <b>y</b> cambian, Vector2(1, -1) apunta hacia la <b>diagonal superior derecha</b>, etc.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_20-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Es por esto que los <b>Vectores</b> son tan utiles en videojuegos. Podemos usarlos para describir <b>movimiento</b>, <b>velocidad</b>, <b>knockback</b>, o incluso la <b>direccion de un jugador hacia un enemigo</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_20-4.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Asi que cuando veas <b>Vector2</b> piensa <b>"es una flecha en un escenario 2D"</b>, sus ejes <b>x</b> e <b>y</b> nos dicen <b>hacia donde apunta la flecha</b>, y su <b>largo</b> nos dice <b>que tan fuerte o distante</b> el vector es.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_20-5.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'Vector2',
+              paragraphs: [
+                '<b>Flecha en un escenario 2D</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: POSICION LOCAL Y GLOBAL ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-posicion-local-global',
+      title: 'Posición Local y Global',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot posicion local global', 'godot posicion local global conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE ES POSICION LOCAL Y GLOBAL EN GODOT? ::::::::::::::::
+        {
+          title: 'Que es Posición Local y Global en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Imagina que tu jugador esta sosteniendo una espada. La espada es un <b>nodo hijo</b> del jugador. Ahora, digamos que la espada esta siempre a <b>20 pixeles a la derecha</b> del jugador. Esa es su <b>posición local</b> (<b>position</b> en Godot).' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_21-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Porque se dice que es <b>"local"</b>? Porque esa posicion esta medida <b>localmente</b>, <b>relativa a su nodo padre</b>. Incluso si el jugador se mueve a lo largo de todo el mapa, la espada siempre mantendra la misma <b>posicion local</b>.' 
+            },
+            { 
+              type: 'p', 
+              text: 'A pesar de que su <b>posición local</b> siempre es la misma, su posición en todo el mundo del videojuego esta cambiando, con eso nos referimos a su <b>posición global</b> (<b>global_position</b> en Godot).' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_21-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces, si el jugador esta en la posicion `Vector2(300, 100)`, la espada estará en la posicion global `Vector2(320, 100)`. ' 
+            },
+            { 
+              type: 'p', 
+              text: 'Es la misma espada, pero con dos formas de describir donde esta. La <b>posicion local</b> (position) pregunta <b>"donde estoy en comparación a mi padre?"</b>, mientras que la <b>posicion global</b> (global_position) pregunta <b>"donde estoy respecto a todo el mundo?"</b>' 
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'Local vs Global',
+              paragraphs: [
+                '<b>position</b> = respecto al nodo padre',
+                '<b>global_position</b> = respecto al mundo',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: VELOCITY ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-velocity',
+      title: 'Velocity',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot velocity', 'godot velocity conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE ES VELOCITY EN GODOT? ::::::::::::::::
+        {
+          title: 'Que significa Velocity en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Comparemos <b>"velocity"</b> (velocidad) con <b>"speed"</b> (rapidez). Si digo que un auto se esta moviendo a 100 Km/h, eso te dice <b>que tan rápido se mueve</b> y eso es <b>"speed"</b>. Ahora, si digo que el auto se esta moviendo a 100 Km/h hacia el este, entoncestambien sabes la dirección ademas de que tan rápido se mueve, y eso es <b>"velocity"</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_22-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: '<b>Velocity</b> nos dice dos cosas: <b>que tan rápido se mueve</b> y <b>en que dirección se mueve</b>. Es por esto que velocity es usualmente representada por un <b>Vector</b>.' 
+            },
+            { 
+              type: 'p', 
+              text: 'Por ejemplo, `velocity = Vector2(200, 0)`, el Vector apunta hacia la <b>derecha</b>, y su largo (200) representa su rapidez (speed). Si lo cambiamos a `velocity = Vector2(-200, 0)`, entonces la rapidez es la misma, pero la dirección ahora es hacia la <b>izquierda</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_22-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces, <b>"speed"</b> nos dice <b>"que tan rápido"</b>, mientras que <b>"velocity"</b> nos dice <b>"que tan rápido y hacia donde"</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_22-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'Velocity',
+              paragraphs: [
+                '<b>= Speed + Dirección</b>',
+              ]
+            },
+          ],
+        },
+      ],
+    },
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::::::::: VELOCITY ::::::::::::::::::::::::::::
+    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    {
+      slug: 'godot-normalize',
+      title: 'Normalize',
+      keywords: ['Godot', 'game development', 'game engine', 'game engine godot', 'game engine godot engine', 'godot normalize', 'godot normalize conceptos'],
+      summary: '',
+      sections: [
+        // :::::::::::::::: QUE ES NORMALIZE EN GODOT? ::::::::::::::::
+        {
+          title: 'Que significa Normalize en Godot?',
+          content: [
+            { 
+              type: 'p', 
+              text: 'Empecemos con un problema comun de movimiento. Moverse a la <b>derecha</b> podría usar <b>Vector2(1, 0)</b>, y moverse hacia <b>arriba</b> podría usar <b>Vector2(0, -1)</b>, pero moverse en <b>diagonal</b> podría usar <b>Vector2(1, -1)</b>.' 
+            },
+            { 
+              type: 'p', 
+              text: 'Y aqui está el problema, <b>el vector diagonal es mas largo que el vector horizontal o vertical</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_23-1.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces, si lo usas directamente para el movimiento de algun objeto, el objeto se <b>moverá mas rápido en diagonal que en horizontal o vertical</b>, y es ahí donde <b>Normalize</b> viene al rescate.' 
+            },
+            { 
+              type: 'p', 
+              text: 'El <b>"normalizar"</b> algo implica llevarlo a un <b>"largo estandar"</b>, entonces para los Vectores, ese largo estandar es <b>1</b>. Por lo que cuando normalizas el <b>Vector2(1, -1)</b>, la direccion se mantiene igual, aun apunta en diagonal, pero su largo ahora es reducido a <b>1</b>.' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_23-2.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Ahora, el movimiendo hacia arriba, abajo, izquierda, derecha, diagonal, etc. pueden usar vectores con el mismo largo, y ahora puedes aplicar tu "speed" (rapidez) real de forma separada' 
+            },
+            {
+              type: 'image',
+              compact: true,
+              src: '/imagenes/godot/godot_conceptos_basicos_23-3.png',
+              alt: 'Conceptos basicos de Godot',
+            },
+            { 
+              type: 'p', 
+              text: 'Entonces, <b>"normalize"</b> hace dos cosas: <b>mantiene la dirección</b> y <b>hace que el largo de los vectores sea 1</b>. Es por esto que <b>"normalize"</b> es tan util para el <b>movimiento</b>.' 
+            },
+            { 
+              type: 'alert',
+              variant: 'primary',
+              title: 'Normalize',
+              paragraphs: [
+                '<b>= misma dirección, largo 1</b>',
+                '`velocity = direction.normalized() * speed`',
               ]
             },
           ],
